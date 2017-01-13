@@ -17,7 +17,8 @@ Here you can find the dependencies for running the project both with or without 
     - You can install it by running `gem install mysql2`
 
 #### Node.js
-  * Version `6.3.x` should be installed
+  * Version `6.3.x` must be installed
+  * `npm` package `phantomjs` must be installed
 
 #### MySQL
   * You should have a `MySQL` instance at least version `14.14` running locally
