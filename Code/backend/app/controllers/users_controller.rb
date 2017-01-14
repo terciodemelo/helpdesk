@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
+  before_action :authenticate_request!, except: [:create]
 
   # GET /users
   def index
@@ -15,7 +16,14 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
+
     @user = User.new(user_params)
+
+    if authenticated_request?
+      return render_admin_only unless logged_in_as_admin?
+    elsif not @user.is_a? Customer
+      return render_unauthorized
+    end
 
     if @user.save
       render json: @user, status: :created, location: @user
