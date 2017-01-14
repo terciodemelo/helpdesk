@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tickets
   post 'login'  => 'authentication#authenticate_user'
   get 'ping'    => 'authentication#ping'
 
