@@ -3,17 +3,23 @@ left to right direction
 
 class User {
   name : String
+  email : String
+  password : String
+  type : String
 }
 
 class Ticket {
   title : String
   body : String
   status: String
+  author_id: Integer
   created_at: Date
 }
 
 class TicketResponse {
   body : String
+  ticket_id: Integer
+  author_id: Integer
   created_at: Date
 }
 
