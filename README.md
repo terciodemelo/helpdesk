@@ -23,6 +23,19 @@ Here you can find the dependencies for running the project both with or without 
 #### MySQL
   * You should have a `MySQL` instance at least version `14.14` running locally
 
+### Generating PNG Diagrams (with Docker images)
+
+#### Mermaid
+```
+docker run --rm -v (pwd):/data arnau/mermaid mermaid -p diagram_file
+```
+
+#### PlantUML
+```
+cat diagram | docker run -i --rm think/plantuml -tpn > diagram.png
+```
+
+
 ## Database initialization
   TODO
 
