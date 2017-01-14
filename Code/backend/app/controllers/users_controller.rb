@@ -2,19 +2,28 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
   before_action :authenticate_request!, except: [:create]
 
-  # GET /users
+  # 
+  # Responds with a JSON containing data regarding to all
+  # existing users in the system
+  #
   def index
     @users = User.all
 
     render json: @users
   end
 
-  # GET /users/1
+  # 
+  # Respondse with a JSON containing data regarding to the
+  # specified user 
+  #
   def show
     render json: @user
   end
 
-  # POST /users
+  # Creates a new user with the following restrictions:
+  #   * Only admins and Unauthenticated users can create new users
+  #   * Unauthenticated users can create only Customers
+  #
   def create
     @user = User.new(user_params)
 
@@ -31,7 +40,12 @@ class UsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /users/1
+  # 
+  # Updates an existing users with the following restrictions
+  #   * Admins can update any user
+  #   * Except for admins, everybody else can update only their
+  #     own data
+  #
   def update
     if @user.update(user_params)
       render json: @user
@@ -40,7 +54,11 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
+  # 
+  # Deletes an existing users with the following restrictions
+  #   * Admins can delete any user
+  #   * Except for admins, everybody else can delete only themselves
+  #
   def destroy
     @user.destroy
   end
