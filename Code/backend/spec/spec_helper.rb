@@ -1,3 +1,4 @@
+require 'jwt'
 require 'simplecov'
 SimpleCov.start
 
