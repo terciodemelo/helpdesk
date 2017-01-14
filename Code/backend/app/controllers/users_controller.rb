@@ -47,7 +47,9 @@ class UsersController < ApplicationController
   #     own data
   #
   def update
-    if @user.update(user_params)
+		if not self_reference_or_admin?
+			render_unauthorized
+    elsif @user.update(user_params)
       render json: @user
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -57,13 +59,34 @@ class UsersController < ApplicationController
   # 
   # Deletes an existing users with the following restrictions
   #   * Admins can delete any user
-  #   * Except for admins, everybody else can delete only themselves
+  #   * Except for admins, nobody else can delete a user
   #
   def destroy
-    @user.destroy
+		if not is_admin?
+			render_admin_only
+		else
+			@user.destroy
+		end
   end
 
   private
+		#
+		# Verifies if the currently logged in user is an Admin or
+		# if the user referenced by the route is themself
+		#
+		# @return [boolean]
+		def self_reference_or_admin?
+			is_admin? or current_user.id == set_user.id
+		end
+
+		#
+		# Verifies if the currently logged in user is an Admin
+		#
+		# @return [boolean]
+		def is_admin?
+			not current_user.nil? and current_user.is_a? Admin
+		end
+	
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
