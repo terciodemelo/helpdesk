@@ -147,7 +147,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe "POST #create" do
     context "Unauthenticated" do
-      context "creation of Customer" do
+      context "creation of new Customer" do
         before :each do
           post :create, {params: {user: build(:create_customer_params)}}
         end
@@ -156,8 +156,29 @@ RSpec.describe UsersController, type: :controller do
           expect(@request.headers['Authorization']).to be_nil
         end
 
-        it "successfully creates a Customer" do
+        it "successfully creates a new Customer" do
           expect(response).to have_http_status(:created)
+        end
+      end
+
+      context "try creation of conflicting Customer" do
+        before :each do
+					@customer = create :customer
+					params = @customer.attributes.except "id"
+          post :create, {params: {user: params}}
+        end
+
+        it "has no authorization header" do
+          expect(@request.headers['Authorization']).to be_nil
+        end
+
+        it "receives a 409 (Conflict) status code" do
+          expect(response).to have_http_status(:conflict)
+        end
+
+        it "receives a conflict message" do
+					response_body = JSON.parse(response.body)
+          expect(response_body).to eq({"email" => @customer.email})
         end
       end
 
@@ -198,6 +219,23 @@ RSpec.describe UsersController, type: :controller do
 					end
 				end
 
+				context "try creation of conflicting Customer" do
+					before :each do
+						@customer = create :customer
+						params = @customer.attributes.except "id"
+						post :create, {params: {user: params}}
+					end
+
+					it "receives a 409 (Conflict) status code" do
+						expect(response).to have_http_status(:conflict)
+					end
+
+					it "receives a conflict message" do
+						response_body = JSON.parse(response.body)
+						expect(response_body).to eq({"email" => @customer.email})
+					end
+				end
+
 				context "creation of SupportAgent" do
 					before :each do
 						post :create, {params: {user: build(:create_support_agent_params)}}
@@ -208,6 +246,23 @@ RSpec.describe UsersController, type: :controller do
 					end
 				end
 
+				context "try creation of conflicting SupportAgent" do
+					before :each do
+						@support_agent = create :support_agent
+						params = @support_agent.attributes.except "id"
+						post :create, {params: {user: params}}
+					end
+
+					it "receives a 409 (Conflict) status code" do
+						expect(response).to have_http_status(:conflict)
+					end
+
+					it "receives a conflict message" do
+						response_body = JSON.parse(response.body)
+						expect(response_body).to eq({"email" => @support_agent.email})
+					end
+				end
+
 				context "creation of Admin" do
 					before :each do
 						post :create, {params: {user: build(:create_admin_params)}}
@@ -215,6 +270,23 @@ RSpec.describe UsersController, type: :controller do
 
 					it "successfully creates a Admin" do
 						expect(response).to have_http_status(:created)
+					end
+				end
+
+				context "try creation of conflicting Admin" do
+					before :each do
+						@admin = create :admin
+						params = @admin.attributes.except "id"
+						post :create, {params: {user: params}}
+					end
+
+					it "receives a 409 (Conflict) status code" do
+						expect(response).to have_http_status(:conflict)
+					end
+
+					it "receives a conflict message" do
+						response_body = JSON.parse(response.body)
+						expect(response_body).to eq({"email" => @admin.email})
 					end
 				end
 			end

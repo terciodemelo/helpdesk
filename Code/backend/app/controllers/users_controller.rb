@@ -38,6 +38,8 @@ class UsersController < ApplicationController
     else
       render json: @user.errors, status: :unprocessable_entity
     end
+	rescue ActiveRecord::RecordNotUnique
+		render json: @user.attributes.slice("email"), status: :conflict
   end
 
   # 
