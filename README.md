@@ -23,6 +23,14 @@ Here you can find the dependencies for running the project both with or without 
 #### MySQL
   * You should have a `MySQL` instance at least version `14.14` running locally
 
+### Generating Documentation from in-code documentation
+
+#### Backend
+You will be using `yard` to generate them by going to directory `Code/backend` and running the following command:
+```
+bundle exec yard doc 'app/**/*.rb' 'lib/**/*.rb'
+```
+
 ### Generating PNG Diagrams (with Docker images)
 
 #### Mermaid
