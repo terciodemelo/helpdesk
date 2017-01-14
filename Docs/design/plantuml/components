@@ -1,0 +1,20 @@
+@startuml
+package "Controllers" {
+  [Users]
+  [Tickets]
+  [TicketsResponse]
+  [Authentication]
+}
+
+database "MySQL" {
+  ORM -- [Database Driver]
+}
+
+auth -- [JWT Authentication]
+
+[Authentication] ..> auth
+[Users] ..> ORM
+[Tickets] ..> ORM
+[TicketsResponse] ..> ORM
+[Users] ..> ORM
+@enduml
