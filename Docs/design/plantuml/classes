@@ -1,0 +1,31 @@
+@startuml
+left to right direction
+
+class User {
+  name : String
+}
+
+class Ticket {
+  title : String
+  body : String
+  status: String
+  created_at: Date
+}
+
+class TicketResponse {
+  body : String
+  created_at: Date
+}
+
+
+User <|-up- Customer 
+User <|-- SupportAgent
+User <|-up- Admin
+
+Customer "1" --- "0..*" Ticket : has >
+
+SupportAgent "1" --- "0..*" TicketResponse : author <
+Customer "1" --- "0..*" TicketResponse : author <
+Ticket "1" --- "0..*" TicketResponse : has >
+
+@enduml
