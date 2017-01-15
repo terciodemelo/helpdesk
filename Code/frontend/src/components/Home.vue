@@ -4,22 +4,25 @@
       Wellcome message
     </div>
 
-    <login-form></login-form>
+    <login-form v-if="form === 'login'"></login-form>
+    <register-form v-else-if="form === 'register'"></register-form>
   </div>
 </template>
 
 <script>
 import LoginForm from './LoginForm'
+import RegisterForm from './RegisterForm'
 
 export default {
   name: 'home',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      form: 'register'
     }
   },
   components: {
-    LoginForm
+    LoginForm,
+    RegisterForm
   }
 }
 </script>

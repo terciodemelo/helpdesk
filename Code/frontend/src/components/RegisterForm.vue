@@ -1,13 +1,17 @@
 <template>
-  <div class="login-form">
-    <form class="box" action="/api/login">
-      <input class="input" id="email" type="text" name="email" placeholder="email@address.here">
-      <input class="input" id="password" type="password" name="password" placeholder="password">
+  <div class="register-form">
+    <form class="box" action="/api/users">
+      <input class="input" id="name" type="text" name="name" 
+             placeholder="Your full name">
+      <input class="input" id="email" type="email" name="email" 
+             placeholder="email@address.here">
+      <input class="input" id="password" type="password" name="password" 
+             placeholder="Password">
 
       <div id="form-footer">
-        <a class="button">Login</a>
+        <a class="button">Register</a>
         <div id="form-footer-links">
-          <a href="">Register new account</a>
+          <a href="">I already have an account</a>
         </div>
       </div>
     </form>
@@ -16,12 +20,12 @@
 
 <script>
 export default {
-  name: 'login-form'
+  name: 'register-form'
 }
 </script>
 
 <style scoped>
-.login-form {
+.register-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
