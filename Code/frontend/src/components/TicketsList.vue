@@ -1,23 +1,19 @@
 <template>
-  <div class="tickets">
+  <div class="tickets-list">
     <new-ticket @new-ticket="newTicket"></new-ticket>
 
-    <ul>
-      <li v-for="ticket in tickets">
-        {{ ticket.title }}
-        <br>
-        {{ ticket.body }}
-      </li>
-    </ul>
+    <ticket-resume v-for="ticket in tickets" :ticket="ticket">
+    </ticket-resume>
   </div>
 </template>
 
 <script>
-import NewTicket from './tickets-elements/NewTicket'
+import NewTicket from './tickets-list-elements/NewTicket'
+import TicketResume from './tickets-list-elements/TicketResume'
 import AuthHelper from '../helpers/auth_helper'
 
 export default {
-  name: 'tickets',
+  name: 'tickets-list',
   data () {
     return {
       tickets: []
@@ -49,7 +45,7 @@ export default {
 
       this.$http.post('/api/tickets', payload, {headers})
                 .then(response => { // success
-                  this.tickets.unshift(payload)
+                  this.tickets.unshift(response.body)
                   console.log(this.tickets)
                 }, response => { // failure
                   console.log(response.body)
@@ -57,13 +53,18 @@ export default {
     }
   },
   components: {
-    NewTicket
+    NewTicket,
+    TicketResume
   }
 }
 </script>
 
 <style scoped>
-.tickets {
+.tickets-list {
   padding-top: 50px;
+}
+
+.ticket-resume, .new-ticket {
+  margin-bottom: 10px;
 }
 </style>

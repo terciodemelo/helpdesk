@@ -6,7 +6,7 @@ import VueResource from 'vue-resource'
 
 import App from './App'
 import Home from './components/Home'
-import Tickets from './components/Tickets'
+import TicketsList from './components/TicketsList'
 
 import AuthHelper from './helpers/auth_helper'
 
@@ -32,7 +32,7 @@ const router = new VueRouter({
     },
     {
       path: '/tickets',
-      component: Tickets,
+      component: TicketsList,
       beforeEnter: (to, from, next) => {
         if (AuthHelper.isLoggedIn()) {
           next()
