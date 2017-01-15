@@ -5,6 +5,7 @@
     </div>
 
     <login-form v-if="!loggedIn() && form === 'login'"
+                @login-successful="loginSuccessful"
                 @follow-link="swapForm">
     </login-form>
 
@@ -30,6 +31,9 @@ export default {
   methods: {
     loggedIn () {
       return AuthHelper.isLoggedIn()
+    },
+    loginSuccessful (authToken, userType) {
+      AuthHelper.login(authToken, userType)
     },
     swapForm () {
       this.form = this.form === 'login' ? 'register' : 'login'

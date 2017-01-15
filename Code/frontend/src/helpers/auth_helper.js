@@ -4,11 +4,11 @@ export default {
   },
 
   isAdmin () {
-    return this.isLoggedIn() && localStorage.getItem('user_type') === 'AdminUser'
+    return this.isLoggedIn() && localStorage.getItem('user_type') === 'Admin'
   },
 
   isSupportAgent () {
-    return this.isLoggedIn() && localStorage.getItem('user_type') === 'SupportUser'
+    return this.isLoggedIn() && localStorage.getItem('user_type') === 'SupportAgent'
   },
 
   isCustomer () {
