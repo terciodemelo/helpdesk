@@ -136,6 +136,10 @@ RSpec.describe TicketsController, type: :controller do
             expect(JSON.parse(response.body)['author_id']).to be_a(Fixnum)
           end
 
+          it "the response must contain the author_name" do
+            expect(JSON.parse(response.body)['author_name']).to be_a(String)
+          end
+
           it "the response must contain the title" do
             expect(JSON.parse(response.body)['title']).to be_a(String)
           end
@@ -182,6 +186,10 @@ RSpec.describe TicketsController, type: :controller do
 
           it "the response must contain the author_id" do
             expect(JSON.parse(response.body)['author_id']).to be_a(Fixnum)
+          end
+
+          it "the response must contain the author_name" do
+            expect(JSON.parse(response.body)['author_name']).to be_a(String)
           end
 
           it "the response must contain the title" do
@@ -242,6 +250,10 @@ RSpec.describe TicketsController, type: :controller do
 
           it "the response must contain the author_id" do
             expect(JSON.parse(response.body)['author_id']).to be_a(Fixnum)
+          end
+
+          it "the response must contain the author_name" do
+            expect(JSON.parse(response.body)['author_name']).to be_a(String)
           end
 
           it "the response must contain the title" do
