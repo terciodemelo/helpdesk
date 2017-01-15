@@ -11,7 +11,7 @@ class ApplicationController < ActionController::API
 
     @current_user = User.find(auth_token[:user_id])
   rescue JWT::VerificationError, JWT::DecodeError
-    render_unauthorized
+    render_unauthorized_wrong_token
   end
 
   # Verifies if the current request being made is authenticated
@@ -44,6 +44,15 @@ class ApplicationController < ActionController::API
   #
   # @param [String] msg a message to be responded
   def render_unauthorized(msg="Not Authenticated")
+    render json: { errors: [msg] }, status: :unauthorized
+  end
+
+  # Responds request an unauthorized status, json content-type,
+  # and a message explaining that they do not have authorization
+  # to perform the current action
+  #
+  # @param [String] msg a message to be responded
+  def render_unauthorized_wrong_token
     render json: { errors: [msg] }, status: :unauthorized
   end
 
