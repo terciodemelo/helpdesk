@@ -4,8 +4,13 @@
       Wellcome message
     </div>
 
-    <login-form v-if="form === 'login'"></login-form>
-    <register-form v-else-if="form === 'register'"></register-form>
+    <login-form v-if="form === 'login'"
+                @follow-link="swapForm">
+    </login-form>
+
+    <register-form v-else-if="form === 'register'"
+                   @follow-link="swapForm">
+    </register-form>
   </div>
 </template>
 
@@ -18,6 +23,11 @@ export default {
   data () {
     return {
       form: 'register'
+    }
+  },
+  methods: {
+    swapForm () {
+      this.form = this.form === 'login' ? 'register' : 'login'
     }
   },
   components: {

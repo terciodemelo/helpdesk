@@ -8,19 +8,27 @@
       <input class="input" id="password" type="password" name="password" 
              placeholder="Password">
 
-      <div id="form-footer">
-        <a class="button">Register</a>
-        <div id="form-footer-links">
-          <a href="">I already have an account</a>
-        </div>
-      </div>
+      <form-footer :button="'Register'" 
+                   :link="'I already have an account'"
+                   @follow-link="followLink">
+      </form-footer>
     </form>
   </div>
 </template>
 
 <script>
+import FormFooter from './FormFooter'
+
 export default {
-  name: 'register-form'
+  name: 'register-form',
+  methods: {
+    followLink () {
+      this.$emit('follow-link')
+    }
+  },
+  components: {
+    FormFooter
+  }
 }
 </script>
 

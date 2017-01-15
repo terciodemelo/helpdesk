@@ -2,21 +2,29 @@
   <div class="login-form">
     <form class="box" action="/api/login">
       <input class="input" id="email" type="text" name="email" placeholder="email@address.here">
-      <input class="input" id="password" type="password" name="password" placeholder="password">
+      <input class="input" id="password" type="password" name="password" placeholder="Password">
 
-      <div id="form-footer">
-        <a class="button">Login</a>
-        <div id="form-footer-links">
-          <a href="">Register new account</a>
-        </div>
-      </div>
+      <form-footer :button="'Login'" 
+                   :link="'Register new account'"
+                   @follow-link="followLink">
+      </form-footer>
     </form>
   </div>
 </template>
 
 <script>
+import FormFooter from './FormFooter'
+
 export default {
-  name: 'login-form'
+  name: 'login-form',
+  methods: {
+    followLink () {
+      this.$emit('follow-link')
+    }
+  },
+  components: {
+    FormFooter
+  }
 }
 </script>
 
