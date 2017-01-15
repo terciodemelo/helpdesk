@@ -1,7 +1,7 @@
 class AuthenticationController < ApplicationController
   before_action :authenticate_request!, only: [:ping]
   
-  #
+  # POST /api/login
   # This action handles a POST request for login
   # if the user data is right it will respond the request
   # with an auth token and the user data as JSON
@@ -14,7 +14,7 @@ class AuthenticationController < ApplicationController
     end
   end
 
-  #
+  # GET /api/ping
   # This action is used just to check if the service is alive
   #
   def ping

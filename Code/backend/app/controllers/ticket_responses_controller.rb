@@ -4,7 +4,7 @@ class TicketResponsesController < ApplicationController
   before_action :authenticate_request!
   before_action :check_ticket_access
 
-  # GET /tickets/:ticket_id/ticket_responses
+  # GET /api/tickets/:ticket_id/ticket_responses
   # Responds with all the ticket responses to the given ticket, if
   # the currently logged in user has access to the ticket
   def index
@@ -13,14 +13,14 @@ class TicketResponsesController < ApplicationController
     render json: @ticket_responses
   end
 
-  # GET /tickets/:ticket_id/ticket_responses/1
+  # GET /api/tickets/:ticket_id/ticket_responses/1
   # Responds with a json containing this ticket response's data,
   # if the curently logged in user has acces to the ticket
   def show
     render json: @ticket_response
   end
 
-  # POST /tickets/:ticket_id/ticket_responses
+  # POST /api/tickets/:ticket_id/ticket_responses
   # Handles the creation of new ticket responses, the currently
   # logged in user must have access to the ticket, and the ticket
   # must be OPEN
@@ -36,7 +36,7 @@ class TicketResponsesController < ApplicationController
     end
   end
 
-  # DELETE /tickets/:ticket_id/ticket_responses/1
+  # DELETE /api/tickets/:ticket_id/ticket_responses/1
   # Handles the deletion of a ticket response, and as this operation
   # is very sensitive, only an Admin can perform it
   def destroy

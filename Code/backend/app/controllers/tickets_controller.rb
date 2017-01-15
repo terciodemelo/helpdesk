@@ -2,7 +2,7 @@ class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :update, :destroy]
   before_action :authenticate_request!
 
-  # GET /tickets
+  # GET /api/tickets
   # Responds with all the tickets that the currently logged in user
   # has access to. If this user is a SupportAgent or an Admin, they
   # have access to all tickets, but if it is a Customer, then it has
@@ -16,7 +16,7 @@ class TicketsController < ApplicationController
     render json: @tickets
   end
 
-  # GET /tickets/1
+  # GET /api/tickets/1
   # Responds with the details for the requested ticket if the
   # currently logged user is a SupportAgent or Admin, or they are
   # the ticket's author
@@ -33,7 +33,7 @@ class TicketsController < ApplicationController
     end
   end
 
-  # POST /tickets
+  # POST /api/tickets
   # Handles the creation of new tickets, but only Customers
   # are allowed to create new Tickets
   def create
@@ -52,7 +52,7 @@ class TicketsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /tickets/1
+  # PATCH/PUT /api/tickets/1
   # Handles the update of existing tickets. The currently logged
   # in user must be either the ticket's creator or a SupportAgent
   # or an Admin
@@ -70,7 +70,7 @@ class TicketsController < ApplicationController
     end
   end
 
-  # DELETE /tickets/1
+  # DELETE /api/tickets/1
   # Handles the deletion of existing tickets, only Admins are
   # allowed to do it
   def destroy
