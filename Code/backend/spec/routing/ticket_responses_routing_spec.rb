@@ -4,35 +4,19 @@ RSpec.describe TicketResponsesController, type: :routing do
   describe "routing" do
 
     it "routes to #index" do
-      expect(:get => "/ticket_responses").to route_to("ticket_responses#index")
-    end
-
-    it "routes to #new" do
-      expect(:get => "/ticket_responses/new").to route_to("ticket_responses#new")
+      expect(:get => "/tickets/1/ticket_responses").to route_to("ticket_responses#index", :ticket_id => "1")
     end
 
     it "routes to #show" do
-      expect(:get => "/ticket_responses/1").to route_to("ticket_responses#show", :id => "1")
-    end
-
-    it "routes to #edit" do
-      expect(:get => "/ticket_responses/1/edit").to route_to("ticket_responses#edit", :id => "1")
+      expect(:get => "/tickets/1/ticket_responses/1").to route_to("ticket_responses#show", :ticket_id => "1", :id => "1")
     end
 
     it "routes to #create" do
-      expect(:post => "/ticket_responses").to route_to("ticket_responses#create")
-    end
-
-    it "routes to #update via PUT" do
-      expect(:put => "/ticket_responses/1").to route_to("ticket_responses#update", :id => "1")
-    end
-
-    it "routes to #update via PATCH" do
-      expect(:patch => "/ticket_responses/1").to route_to("ticket_responses#update", :id => "1")
+      expect(:post => "/tickets/1/ticket_responses").to route_to("ticket_responses#create", :ticket_id => "1")
     end
 
     it "routes to #destroy" do
-      expect(:delete => "/ticket_responses/1").to route_to("ticket_responses#destroy", :id => "1")
+      expect(:delete => "/tickets/1/ticket_responses/1").to route_to("ticket_responses#destroy", :ticket_id => "1", :id => "1")
     end
 
   end

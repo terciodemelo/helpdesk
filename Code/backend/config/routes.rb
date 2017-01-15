@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  resources :ticket_responses
-  resources :tickets
+  resources :tickets do
+    resources :ticket_responses, except: [:update]
+  end
   post 'login'  => 'authentication#authenticate_user'
   get 'ping'    => 'authentication#ping'
 
