@@ -1,6 +1,9 @@
 <template>
   <div class="form-footer">
-    <a class="button">{{ button }}</a>
+    <button class="button" @click.prevent="buttonClick">
+      {{ button }}
+    </button>
+
     <div id="form-footer-links">
       <a href="" @click.prevent="followLink">{{ link }}</a>
     </div>
@@ -12,6 +15,9 @@ export default {
   name: 'form-footer',
   props: ['button', 'link'],
   methods: {
+    buttonClick () {
+      this.$emit('button-click')
+    },
     followLink () {
       this.$emit('follow-link')
     }

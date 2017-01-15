@@ -4,11 +4,11 @@
       Wellcome message
     </div>
 
-    <login-form v-if="form === 'login'"
+    <login-form v-if="!loggedIn() && form === 'login'"
                 @follow-link="swapForm">
     </login-form>
 
-    <register-form v-else-if="form === 'register'"
+    <register-form v-else-if="!loggedIn() && form === 'register'"
                    @follow-link="swapForm">
     </register-form>
   </div>
@@ -18,14 +18,19 @@
 import LoginForm from './LoginForm'
 import RegisterForm from './RegisterForm'
 
+import AuthHelper from '../helpers/auth_helper'
+
 export default {
   name: 'home',
   data () {
     return {
-      form: 'register'
+      form: 'login'
     }
   },
   methods: {
+    loggedIn () {
+      return AuthHelper.isLoggedIn()
+    },
     swapForm () {
       this.form = this.form === 'login' ? 'register' : 'login'
     }

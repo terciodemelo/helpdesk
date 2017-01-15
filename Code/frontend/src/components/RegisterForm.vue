@@ -1,14 +1,15 @@
 <template>
   <div class="register-form">
-    <form class="box" action="/api/users">
-      <input class="input" id="name" type="text" name="name" 
-             placeholder="Your full name">
-      <input class="input" id="email" type="email" name="email" 
-             placeholder="email@address.here">
-      <input class="input" id="password" type="password" name="password" 
-             placeholder="Password">
+    <form class="box" action="/api/users" @submit.prevent="submit">
+      <input class="input" type="text" name="name" 
+             v-model="name" placeholder="Your full name">
+      <input class="input" type="email" name="email" 
+             v-model="email" placeholder="email@address.here">
+      <input class="input" type="password" name="password" 
+             v-model="password" placeholder="Password">
 
       <form-footer :button="'Register'" 
+                   @button-click="submit"
                    :link="'I already have an account'"
                    @follow-link="followLink">
       </form-footer>
@@ -21,7 +22,33 @@ import FormFooter from './FormFooter'
 
 export default {
   name: 'register-form',
+  data () {
+    return {
+      name: '',
+      email: '',
+      password: ''
+    }
+  },
   methods: {
+    submit () {
+      let payload = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        type: 'Customer'
+      }
+
+      let headers = {
+        'Content-Type': 'application/json'
+      }
+
+      this.$http.post('/api/users', payload, headers)
+                .then(response => { // success
+                  this.$emit('follow-link')
+                }, response => {
+                  console.log(response.body)
+                })
+    },
     followLink () {
       this.$emit('follow-link')
     }
