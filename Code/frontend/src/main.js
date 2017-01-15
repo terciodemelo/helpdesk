@@ -6,6 +6,9 @@ import VueResource from 'vue-resource'
 
 import App from './App'
 import Home from './components/Home'
+import Tickets from './components/Tickets'
+
+import AuthHelper from './helpers/auth_helper'
 
 import 'bulma/css/bulma.css'
 import 'font-awesome/css/font-awesome.min.css'
@@ -16,7 +19,28 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    {path: '*', component: Home}
+    {
+      path: '/',
+      component: Home,
+      beforeEnter: (to, from, next) => {
+        if (AuthHelper.isLoggedIn()) {
+          next('/tickets')
+        } else {
+          next()
+        }
+      }
+    },
+    {
+      path: '/tickets',
+      component: Tickets,
+      beforeEnter: (to, from, next) => {
+        if (AuthHelper.isLoggedIn()) {
+          next()
+        } else {
+          next('/')
+        }
+      }
+    }
   ]
 })
 

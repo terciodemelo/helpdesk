@@ -34,6 +34,7 @@ export default {
     },
     loginSuccessful (authToken, userType) {
       AuthHelper.login(authToken, userType)
+      this.$router.push('/tickets')
     },
     swapForm () {
       this.form = this.form === 'login' ? 'register' : 'login'

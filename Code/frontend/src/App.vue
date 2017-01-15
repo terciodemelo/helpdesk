@@ -5,10 +5,12 @@
         <a class="nav-item is-tab" href="/">Home</a>
         <a class="nav-item is-tab" href="/tickets">Tickets</a>
       </div>
+
       <div class="nav-right">
-        <a class="nav-item is-tab">Logout</a>
+        <a class="nav-item is-tab" @click="logout">Logout</a>
       </div>
     </nav>
+
     <div id="content">
       <router-view></router-view>
     </div>
@@ -16,6 +18,17 @@
 </template>
 
 <script>
+import AuthHelper from './helpers/auth_helper'
+
+export default {
+
+  methods: {
+    logout () {
+      AuthHelper.logout()
+      this.$router.push('/')
+    }
+  }
+}
 </script>
 
 <style>
@@ -36,5 +49,6 @@ nav {
 
 #content {
   max-width: 50em;
+  width: 100%;
 }
 </style>

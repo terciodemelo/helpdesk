@@ -40,7 +40,7 @@ export default {
                     response.body.auth_token,
                     response.body.user.type
                   )
-                }, response => {
+                }, response => { // failure
                   console.log(response.body)
                 })
     }

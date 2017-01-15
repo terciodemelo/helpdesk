@@ -1,4 +1,9 @@
 export default {
+
+  authorizationHeader () {
+    return `Bearer ${localStorage.getItem('auth_token')}`
+  },
+
   isLoggedIn () {
     return !!localStorage.getItem('auth_token')
   },
