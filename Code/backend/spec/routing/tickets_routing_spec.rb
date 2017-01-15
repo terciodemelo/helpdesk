@@ -7,16 +7,8 @@ RSpec.describe TicketsController, type: :routing do
       expect(:get => "/tickets").to route_to("tickets#index")
     end
 
-    it "routes to #new" do
-      expect(:get => "/tickets/new").to route_to("tickets#new")
-    end
-
     it "routes to #show" do
       expect(:get => "/tickets/1").to route_to("tickets#show", :id => "1")
-    end
-
-    it "routes to #edit" do
-      expect(:get => "/tickets/1/edit").to route_to("tickets#edit", :id => "1")
     end
 
     it "routes to #create" do
