@@ -5,6 +5,8 @@ class TicketResponsesController < ApplicationController
   before_action :check_ticket_access
 
   # GET /tickets/:ticket_id/ticket_responses
+  # Responds with all the ticket responses to the given ticket, if
+  # the currently logged in user has access to the ticket
   def index
     @ticket_responses = @ticket.ticket_responses
 
@@ -12,11 +14,16 @@ class TicketResponsesController < ApplicationController
   end
 
   # GET /tickets/:ticket_id/ticket_responses/1
+  # Responds with a json containing this ticket response's data,
+  # if the curently logged in user has acces to the ticket
   def show
     render json: @ticket_response
   end
 
   # POST /tickets/:ticket_id/ticket_responses
+  # Handles the creation of new ticket responses, the currently
+  # logged in user must have access to the ticket, and the ticket
+  # must be OPEN
   def create
     @ticket_response = TicketResponse.new(ticket_response_params)
     @ticket_response.author_id = current_user.id
@@ -30,6 +37,8 @@ class TicketResponsesController < ApplicationController
   end
 
   # DELETE /tickets/:ticket_id/ticket_responses/1
+  # Handles the deletion of a ticket response, and as this operation
+  # is very sensitive, only an Admin can perform it
   def destroy
     case current_user
     when Admin then @ticket_response.destroy
@@ -38,6 +47,10 @@ class TicketResponsesController < ApplicationController
   end
 
   private
+  # Verifies if the currently logged in user has access to the 
+  # specified ticket
+  #
+  # @return boolean
   def check_ticket_access
     case current_user
     when Customer
