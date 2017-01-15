@@ -6,7 +6,7 @@ class TicketResponsesController < ApplicationController
 
   # GET /tickets/:ticket_id/ticket_responses
   def index
-    @ticket_responses = TicketResponse.all
+    @ticket_responses = @ticket.ticket_responses
 
     render json: @ticket_responses
   end

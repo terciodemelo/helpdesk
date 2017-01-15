@@ -28,6 +28,7 @@ RSpec.describe TicketResponsesController, type: :controller do
 
           ticket = create :ticket
           create_list :ticket_response, 9, ticket: ticket
+          create_list :ticket_response, 5
 
           get :index, params: {ticket_id: ticket.id}
         end
