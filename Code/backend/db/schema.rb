@@ -10,15 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170114203525) do
+ActiveRecord::Schema.define(version: 20170115025153) do
+
+  create_table "ticket_responses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text     "body",       limit: 65535
+    t.integer  "ticket_id"
+    t.integer  "author_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["author_id"], name: "index_ticket_responses_on_author_id", using: :btree
+    t.index ["ticket_id"], name: "index_ticket_responses_on_ticket_id", using: :btree
+  end
 
   create_table "tickets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title"
-    t.text     "body"
+    t.text     "body",       limit: 65535
     t.string   "status"
     t.integer  "author_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.index ["author_id"], name: "index_tickets_on_author_id", using: :btree
     t.index ["status"], name: "index_tickets_on_status", using: :btree
   end
@@ -34,5 +44,7 @@ ActiveRecord::Schema.define(version: 20170114203525) do
     t.index ["type"], name: "index_users_on_type", using: :btree
   end
 
+  add_foreign_key "ticket_responses", "tickets"
+  add_foreign_key "ticket_responses", "users", column: "author_id"
   add_foreign_key "tickets", "users", column: "author_id"
 end
