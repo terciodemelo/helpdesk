@@ -7,6 +7,9 @@ import VueResource from 'vue-resource'
 import App from './App'
 import Home from './components/Home'
 
+import 'bulma/css/bulma.css'
+import 'font-awesome/css/font-awesome.min.css'
+
 Vue.use(VueResource)
 Vue.use(VueRouter)
 
