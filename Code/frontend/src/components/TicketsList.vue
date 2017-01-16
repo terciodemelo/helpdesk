@@ -24,6 +24,9 @@ import PDF from 'jspdf'
 
 export default {
   name: 'tickets-list',
+  watch: {
+    '$route': 'fetchTickets'
+  },
   data () {
     return {
       tickets: []
@@ -49,7 +52,12 @@ export default {
         'Authorization': AuthHelper.authorizationHeader()
       }
 
-      this.$http.get('/api/tickets', {headers})
+      let url = '/api/tickets'
+      let params = {
+        status: this.$route.query.status
+      }
+
+      this.$http.get(url, {headers, params})
                 .then(response => {
                   response.body.reverse()
                   this.tickets = response.body

@@ -8,6 +8,9 @@
         <router-link class="nav-item is-tab" to="/tickets">
           Tickets
         </router-link>
+        <router-link class="nav-item is-tab" to="/tickets?status=CLOSED">
+          Closed Tickets
+        </router-link>
       </div>
 
       <div v-if="isLoggedIn()" class="nav-right">
