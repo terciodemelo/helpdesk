@@ -5,7 +5,7 @@
         <div class="media-content">
           <p>
             <strong>
-              <a :href="ticket_url"> {{ ticket.title }} </a>
+              <router-link :to="ticket_url"> {{ ticket.title }} </router-link>
             </strong>
             <span v-if="ticket.status === 'OPEN'" class="tag is-success"> OPEN </span>
             <span v-else class="tag is-danger"> CLOSED </span>

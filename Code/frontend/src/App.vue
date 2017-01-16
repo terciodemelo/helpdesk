@@ -2,8 +2,12 @@
   <div id="app">
     <nav class="nav has-shadow">
       <div class="nav-left">
-        <a class="nav-item is-tab" href="/">Home</a>
-        <a class="nav-item is-tab" href="/tickets">Tickets</a>
+        <router-link class="nav-item is-tab" to="/">
+          Home
+        </router-link>
+        <router-link class="nav-item is-tab" to="/tickets">
+          Tickets
+        </router-link>
       </div>
 
       <div v-if="isLoggedIn()" class="nav-right">
