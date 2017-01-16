@@ -39,7 +39,8 @@ export default {
                   let payload = {
                     auth_token: response.body.auth_token,
                     user_type: response.body.user.type,
-                    user_name: response.body.user.name
+                    user_name: response.body.user.name,
+                    user_id: response.body.user.id
                   }
 
                   this.$emit('login-successful', payload)

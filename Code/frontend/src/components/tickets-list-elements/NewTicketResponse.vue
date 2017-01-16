@@ -26,7 +26,7 @@ export default {
 
 <style scoped>
 .new-ticket-response {
-  width: 85%;
+  width: 100%;
 }
 
 .new-ticket-response > form {

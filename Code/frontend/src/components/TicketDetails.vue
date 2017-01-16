@@ -5,6 +5,7 @@
       </ticket-resume>
 
       <ticket-response v-for="response in ticket.ticket_responses"
+                       :class="responseAlignment(response)"
                        :response="response">
       </ticket-response>
     </div>
@@ -39,7 +40,6 @@ export default {
 
       this.$http.get(`/api/tickets/${this.$route.params.id}`, {headers})
                 .then(response => {
-                  console.log(response.body)
                   this.ticket = response.body
                 }, response => {
                   console.log(response.body)
@@ -61,6 +61,10 @@ export default {
     },
     ticketUpdate (newTicket) {
       this.ticket.status = newTicket.status
+    },
+    responseAlignment (response) {
+      return response.author_id === +AuthHelper.user().id
+             ? 'response-right' : 'response-left'
     }
   },
   created () {
@@ -78,7 +82,6 @@ export default {
 .ticket-details {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
   margin-top: 60px;
 }
 
@@ -98,6 +101,18 @@ export default {
   width: 85%;
   margin-bottom: 10px;
   text-align: left;
+}
+
+.response-right {
+  align-self: flex-end;
+}
+
+.response-left {
+  align-self: flex-start;
+}
+
+.new-ticket-response {
+  align-self: center;
 }
 
 .is-loading {

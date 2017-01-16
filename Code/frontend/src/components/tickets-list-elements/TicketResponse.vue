@@ -1,8 +1,8 @@
 <template>
   <div class="ticket-response">
-    <div class="box">
+    <div class="box" :class="getStyle()">
       <small>
-        <strong> {{ response.author_name }} </strong>
+        <strong id="name"> {{ response.author_name }} </strong>
         in
         <strong> 
           {{ response.created_at | moment("MMMM Do YYYY, hh:mm:ss") }}
@@ -14,9 +14,17 @@
 </template>
 
 <script>
+import AuthHelper from '../../helpers/auth_helper'
+
 export default {
   name: 'ticket-response',
-  props: ['response']
+  props: ['response'],
+  methods: {
+    getStyle () {
+      return this.response.author_id === +AuthHelper.user().id
+             ? 'user-response' : ''
+    }
+  }
 }
 </script>
 
@@ -24,6 +32,15 @@ export default {
 .box {
   padding-top: 3px;
 }
+
+.user-response #name {
+  color: mediumslateblue;
+}
+
+#name {
+  color: cornflowerblue;
+}
+
 pre {
   background-color: transparent;
 }
