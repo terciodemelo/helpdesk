@@ -32,8 +32,8 @@ export default {
     loggedIn () {
       return AuthHelper.isLoggedIn()
     },
-    loginSuccessful (authToken, userType) {
-      AuthHelper.login(authToken, userType)
+    loginSuccessful (payload) {
+      AuthHelper.login(payload)
       this.$router.push('/tickets')
     },
     swapForm () {

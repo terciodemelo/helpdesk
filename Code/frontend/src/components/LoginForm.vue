@@ -36,10 +36,13 @@ export default {
 
       this.$http.post('/api/login', payload, headers)
                 .then(response => { // success
-                  this.$emit('login-successful',
-                    response.body.auth_token,
-                    response.body.user.type
-                  )
+                  let payload = {
+                    auth_token: response.body.auth_token,
+                    user_type: response.body.user.type,
+                    user_name: response.body.user.name
+                  }
+
+                  this.$emit('login-successful', payload)
                 }, response => { // failure
                   console.log(response.body)
                 })

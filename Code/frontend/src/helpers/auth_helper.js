@@ -20,9 +20,10 @@ export default {
     return this.isLoggedIn() && !this.isAdmin() && !this.isSupportAgent()
   },
 
-  login (authToken, userType) {
-    localStorage.setItem('auth_token', authToken)
-    localStorage.setItem('user_type', userType)
+  login (payload) {
+    localStorage.setItem('auth_token', payload.auth_token)
+    localStorage.setItem('user_type', payload.user_type)
+    localStorage.setItem('user_name', payload.user_name)
   },
 
   logout () {

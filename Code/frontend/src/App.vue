@@ -6,7 +6,8 @@
         <a class="nav-item is-tab" href="/tickets">Tickets</a>
       </div>
 
-      <div class="nav-right">
+      <div v-if="isLoggedIn()" class="nav-right">
+        <a class="nav-item"> Hello, {{ userName() }} </a>
         <a class="nav-item is-tab" @click="logout">Logout</a>
       </div>
     </nav>
@@ -21,11 +22,16 @@
 import AuthHelper from './helpers/auth_helper'
 
 export default {
-
   methods: {
     logout () {
       AuthHelper.logout()
       this.$router.push('/')
+    },
+    isLoggedIn () {
+      return AuthHelper.isLoggedIn()
+    },
+    userName () {
+      return localStorage.getItem('user_name')
     }
   }
 }
