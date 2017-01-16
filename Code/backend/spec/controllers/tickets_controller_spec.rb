@@ -25,17 +25,50 @@ RSpec.describe TicketsController, type: :controller do
         before :each do
           login(create :admin)
 
-          create_list :ticket, 9
-
-          get :index
+          create_list :ticket, 4, status: 'OPEN'
+          create_list :ticket, 5, status: 'CLOSED'
         end
 
-        it "has access to resource" do
-          expect(response).to have_http_status(:success)
+        context "not specifying status" do
+          before :each do
+            get :index
+          end
+
+          it "has access to resource" do
+            expect(response).to have_http_status(:success)
+          end
+
+          it "fetches nine tickets" do
+            expect(JSON.parse(response.body).size).to eq(9)
+          end
         end
 
-        it "fetches nine tickets" do
-          expect(JSON.parse(response.body).size).to eq(9)
+        context "specifying status OPEN" do
+          before :each do
+            get :index, status: 'OPEN'
+          end
+
+          it "has access to resource" do
+            expect(response).to have_http_status(:success)
+          end
+
+          it "fetches four tickets" do
+            expect(JSON.parse(response.body).size).to eq(4)
+          end
+        end
+
+        context "specifying status CLOSED" do
+          before :each do
+            get :index, status: 'CLOSED'
+          end
+
+          it "has access to resource" do
+            expect(response).to have_http_status(:success)
+          end
+
+          it "fetches four tickets" do
+            expect(JSON.parse(response.body).size).to eq(5)
+          end
         end
       end
 
@@ -43,17 +76,50 @@ RSpec.describe TicketsController, type: :controller do
         before :each do
           login(create :support_agent)
 
-          create_list :ticket, 9
-
-          get :index
+          create_list :ticket, 4, status: 'OPEN'
+          create_list :ticket, 5, status: 'CLOSED'
         end
 
-        it "has access to resource" do
-          expect(response).to have_http_status(:success)
+        context "not specifying status" do
+          before :each do
+            get :index
+          end
+
+          it "has access to resource" do
+            expect(response).to have_http_status(:success)
+          end
+
+          it "fetches nine tickets" do
+            expect(JSON.parse(response.body).size).to eq(9)
+          end
         end
 
-        it "fetches nine tickets" do
-          expect(JSON.parse(response.body).size).to eq(9)
+        context "specifying status OPEN" do
+          before :each do
+            get :index, status: 'OPEN'
+          end
+
+          it "has access to resource" do
+            expect(response).to have_http_status(:success)
+          end
+
+          it "fetches four tickets" do
+            expect(JSON.parse(response.body).size).to eq(4)
+          end
+        end
+
+        context "specifying status CLOSED" do
+          before :each do
+            get :index, status: 'CLOSED'
+          end
+
+          it "has access to resource" do
+            expect(response).to have_http_status(:success)
+          end
+
+          it "fetches four tickets" do
+            expect(JSON.parse(response.body).size).to eq(5)
+          end
         end
       end
 

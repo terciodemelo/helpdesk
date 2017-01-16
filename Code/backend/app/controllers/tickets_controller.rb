@@ -9,8 +9,14 @@ class TicketsController < ApplicationController
   # access to their own tickets
   def index
     @tickets = case current_user
-               when Customer then Ticket.where(author_id: current_user.id)
-               else Ticket.all
+               when Customer 
+                 Ticket.where(author_id: current_user.id)
+               else
+                 if params[:status]
+                   Ticket.where(status: params[:status])
+                 else
+                   Ticket.all
+                 end
                end
 
     render json: @tickets
