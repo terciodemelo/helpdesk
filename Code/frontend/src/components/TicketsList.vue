@@ -3,6 +3,9 @@
 
     <new-ticket @new-ticket="newTicket">
       <tickets-selection :selection="selection" 
+                         :open="open" :closed="closed"
+                         @toggle-open="toggleOpen"
+                         @toggle-closed="toggleClosed"
                          @selection-update="selectionUpdate">
       </tickets-selection>
 
@@ -14,6 +17,7 @@
 
     <div id="tickets">
       <ticket-resume v-for="ticket in tickets" 
+                     v-if="visible(ticket)"
                      :ticket="ticket"
                      @ticket-update="ticketUpdate">
       </ticket-resume>
@@ -37,7 +41,9 @@ export default {
   data () {
     return {
       tickets: [],
-      selection: 'all'
+      selection: 'all',
+      open: true,
+      closed: true
     }
   },
   created () {
@@ -64,17 +70,16 @@ export default {
 
       this.$http.get(url, {headers, params})
                 .then(response => {
-                  response.body.reverse()
+                  response.body.sort((t1, t2) => {
+                    [t1.created_at, -t1.id] > [t2.created_at, -t2.id]
+                  })
                   this.tickets = response.body
                 }, response => {
                   console.log(response.body)
                 })
     },
     newTicket (payload) {
-      let headers = {
-        'Content-Type': 'application/json',
-        'Authorization': AuthHelper.authorizationHeader()
-      }
+      let headers = AuthHelper.jsonHeaders()
 
       this.$http.post('/api/tickets', payload, {headers})
                 .then(response => { // success
@@ -93,6 +98,16 @@ export default {
     },
     selectionUpdate (selection) {
       this.selection = selection
+    },
+    toggleOpen () {
+      this.open = !this.open
+    },
+    toggleClosed () {
+      this.closed = !this.closed
+    },
+    visible (ticket) {
+      return (ticket.status === 'CLOSED' && this.closed) ||
+             (ticket.status === 'OPEN' && this.open)
     }
   },
   components: {
