@@ -1,7 +1,8 @@
 <template>
   <div class="ticket-details">
     <div v-if="ticket" id="resume">
-      <ticket-resume :ticket="ticket"></ticket-resume>
+      <ticket-resume :ticket="ticket" @ticket-update="ticketUpdate">
+      </ticket-resume>
 
       <ticket-response v-for="response in ticket.ticket_responses"
                        :response="response">
@@ -34,10 +35,7 @@ export default {
   },
   methods: {
     fetchTicket () {
-      let headers = {
-        'Content-Type': 'application/json',
-        'Authorization': AuthHelper.authorizationHeader()
-      }
+      let headers = AuthHelper.jsonHeaders()
 
       this.$http.get(`/api/tickets/${this.$route.params.id}`, {headers})
                 .then(response => {
@@ -56,11 +54,13 @@ export default {
 
       this.$http.post(url, {body: response}, {headers})
                 .then(response => {
-                  console.log(response.body)
                   this.ticket.ticket_responses.push(response.body)
                 }, response => {
                   console.log(response.body)
                 })
+    },
+    ticketUpdate (newTicket) {
+      this.ticket.status = newTicket.status
     }
   },
   created () {

@@ -9,7 +9,9 @@
     </new-ticket>
 
     <div id="tickets">
-      <ticket-resume v-for="ticket in tickets" :ticket="ticket">
+      <ticket-resume v-for="ticket in tickets" 
+                     :ticket="ticket"
+                     @ticket-update="ticketUpdate">
       </ticket-resume>
     </div>
   </div>
@@ -47,10 +49,7 @@ export default {
       report.save('tickets-report.pdf')
     },
     fetchTickets () {
-      let headers = {
-        'Content-Type': 'application/json',
-        'Authorization': AuthHelper.authorizationHeader()
-      }
+      let headers = AuthHelper.jsonHeaders()
 
       let url = '/api/tickets'
       let params = {
@@ -78,6 +77,13 @@ export default {
                 }, response => { // failure
                   console.log(response.body)
                 })
+    },
+    ticketUpdate (newTicket) {
+      this.tickets.forEach((element, index, array) => {
+        if (element.id === newTicket.id) {
+          array[index].status = newTicket.status
+        }
+      })
     }
   },
   components: {

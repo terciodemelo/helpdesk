@@ -1,5 +1,12 @@
 export default {
 
+  jsonHeaders () {
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': this.authorizationHeader()
+    }
+  },
+
   authorizationHeader () {
     return `Bearer ${localStorage.getItem('auth_token')}`
   },
