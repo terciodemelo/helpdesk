@@ -2,6 +2,10 @@
   <div class="tickets-list">
 
     <new-ticket @new-ticket="newTicket">
+      <tickets-selection :selection="selection" 
+                         @selection-update="selectionUpdate">
+      </tickets-selection>
+
       <button v-if="!isCustomer()" id="export" class="button" 
               @click.prevent="exportPDF">
         Export
@@ -20,6 +24,7 @@
 <script>
 import NewTicket from './tickets-list-elements/NewTicket'
 import TicketResume from './tickets-list-elements/TicketResume'
+import TicketsSelection from './tickets-list-elements/TicketsSelection'
 import AuthHelper from '../helpers/auth_helper'
 
 import PDF from 'jspdf'
@@ -31,7 +36,8 @@ export default {
   },
   data () {
     return {
-      tickets: []
+      tickets: [],
+      selection: 'all'
     }
   },
   created () {
@@ -84,11 +90,15 @@ export default {
           array[index].status = newTicket.status
         }
       })
+    },
+    selectionUpdate (selection) {
+      this.selection = selection
     }
   },
   components: {
     NewTicket,
-    TicketResume
+    TicketResume,
+    TicketsSelection
   }
 }
 </script>
@@ -100,5 +110,9 @@ export default {
 
 .ticket-resume, .new-ticket {
   margin-bottom: 10px;
+}
+
+.tabs {
+  margin-bottom: 0px !important;
 }
 </style>
