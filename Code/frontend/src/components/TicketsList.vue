@@ -45,6 +45,14 @@ export default {
   },
   created () {
     this.fetchTickets()
+
+    let status = this.$route.query.status
+
+    if (status && status === 'OPEN') {
+      this.closed = false
+    } else if (status && status === 'CLOSED') {
+      this.open = false
+    }
   },
   methods: {
     isCustomer () {
@@ -61,11 +69,8 @@ export default {
       let headers = AuthHelper.jsonHeaders()
 
       let url = '/api/tickets'
-      let params = {
-        status: this.$route.query.status
-      }
 
-      this.$http.get(url, {headers, params})
+      this.$http.get(url, {headers})
                 .then(response => {
                   response.body.sort((t1, t2) => {
                     [t1.created_at, -t1.id] > [t2.created_at, -t2.id]
