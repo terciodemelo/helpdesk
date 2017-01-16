@@ -14,9 +14,12 @@
         <button class="button">Create Ticket</button>
       </form>
 
-      <button v-else class="button" @click.prevent="toggleForm">
-        New Ticket
-      </button>
+      <div v-else id="menu">
+        <button class="button" @click.prevent="toggleForm">
+          New Ticket
+        </button>
+        <slot></slot>
+      </div>
     </transition>
 
   </div>
@@ -54,6 +57,11 @@ export default {
 </script>
 
 <style scoped>
+#menu {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
 .new-ticket {
   display: flex;
 }

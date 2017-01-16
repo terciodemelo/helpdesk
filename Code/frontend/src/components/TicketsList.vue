@@ -1,9 +1,17 @@
 <template>
   <div class="tickets-list">
-    <new-ticket @new-ticket="newTicket"></new-ticket>
 
-    <ticket-resume v-for="ticket in tickets" :ticket="ticket">
-    </ticket-resume>
+    <new-ticket @new-ticket="newTicket">
+      <button v-if="!isCustomer()" id="export" class="button" 
+              @click.prevent="exportPDF">
+        Export
+      </button>
+    </new-ticket>
+
+    <div id="tickets">
+      <ticket-resume v-for="ticket in tickets" :ticket="ticket">
+      </ticket-resume>
+    </div>
   </div>
 </template>
 
@@ -11,6 +19,8 @@
 import NewTicket from './tickets-list-elements/NewTicket'
 import TicketResume from './tickets-list-elements/TicketResume'
 import AuthHelper from '../helpers/auth_helper'
+
+import PDF from 'jspdf'
 
 export default {
   name: 'tickets-list',
@@ -23,6 +33,16 @@ export default {
     this.fetchTickets()
   },
   methods: {
+    isCustomer () {
+      return AuthHelper.isCustomer()
+    },
+    exportPDF () {
+      let report = PDF('p', 'pt', 'letter')
+      report.fromHTML(document.getElementById('tickets'), 15, 15, {
+        width: 500
+      })
+      report.save('tickets-report.pdf')
+    },
     fetchTickets () {
       let headers = {
         'Content-Type': 'application/json',
