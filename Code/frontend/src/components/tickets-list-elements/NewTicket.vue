@@ -11,7 +11,12 @@
                   v-model="body" placeholder="Ticket content">
         </textarea>
 
-        <button class="button">Create Ticket</button>
+        <div id="cancel-or-create">
+          <button class="button" @click.prevent="toggleForm">
+            Cancel
+          </button>
+          <button class="button">Create Ticket</button>
+        </div>
       </form>
 
       <div v-else id="menu">
