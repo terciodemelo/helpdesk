@@ -35,9 +35,6 @@ import PDF from 'jspdf'
 
 export default {
   name: 'tickets-list',
-  watch: {
-    '$route': 'fetchTickets'
-  },
   data () {
     return {
       tickets: [],
@@ -101,13 +98,26 @@ export default {
     },
     toggleOpen () {
       this.open = !this.open
+      this.fixQueryString()
     },
     toggleClosed () {
       this.closed = !this.closed
+      this.fixQueryString()
     },
     visible (ticket) {
       return (ticket.status === 'CLOSED' && this.closed) ||
              (ticket.status === 'OPEN' && this.open)
+    },
+    fixQueryString () {
+      if (this.open && this.closed) {
+        this.$router.replace({query: {}})
+      } else if (this.closed) {
+        this.$router.replace({query: {status: 'CLOSED'}})
+      } else if (this.open) {
+        this.$router.replace({query: {status: 'OPEN'}})
+      } else {
+        this.$router.replace({query: {}})
+      }
     }
   },
   components: {
