@@ -27,6 +27,7 @@ class TicketResponsesController < ApplicationController
   def create
     @ticket_response = TicketResponse.new(ticket_response_params)
     @ticket_response.author_id = current_user.id
+    @ticket_response.ticket_id = @ticket.id
 
     if @ticket_response.save
       location = ticket_ticket_response_url(@ticket, @ticket_response)
