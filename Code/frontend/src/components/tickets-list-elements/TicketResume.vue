@@ -9,7 +9,7 @@
             </strong>
             <a v-if="ticket.status === 'OPEN'" 
                @click.prevent="toggleStatus"
-               class="tag is-success"> OPEN </a>
+               class="tag is-primary"> OPEN </a>
             <a v-else class="tag is-danger"
                @click.prevent="toggleStatus"> CLOSED </a>
             <br>
