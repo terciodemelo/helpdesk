@@ -9,7 +9,7 @@
                          @selection-update="selectionUpdate">
       </tickets-selection>
 
-      <button v-if="!isCustomer()" id="export" class="button" 
+      <button :class="exportVisibility()" id="export" class="button" 
               @click.prevent="exportPDF">
         Export
       </button>
@@ -55,8 +55,8 @@ export default {
     }
   },
   methods: {
-    isCustomer () {
-      return AuthHelper.isCustomer()
+    exportVisibility () {
+      return AuthHelper.isCustomer() ? 'hidden' : ''
     },
     exportPDF () {
       let report = PDF('p', 'pt', 'letter')

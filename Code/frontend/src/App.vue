@@ -42,6 +42,10 @@ export default {
 </script>
 
 <style>
+.hidden {
+  visibility: hidden;
+}
+
 nav {
   width: 100%;
 }

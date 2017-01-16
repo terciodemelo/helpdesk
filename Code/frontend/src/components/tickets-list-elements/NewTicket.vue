@@ -15,7 +15,9 @@
       </form>
 
       <div v-else id="menu">
-        <button class="button" @click.prevent="toggleForm">
+        <button class="button" 
+                :class="visibility()"
+                @click.prevent="toggleForm">
           New Ticket
         </button>
         <slot></slot>
@@ -26,6 +28,8 @@
 </template>
 
 <script>
+import AuthHelper from '../../helpers/auth_helper'
+
 export default {
   name: 'new-ticket',
   data () {
@@ -48,9 +52,11 @@ export default {
       this.body = ''
       this.formVisible = false
     },
-
     toggleForm () {
       this.formVisible = !this.formVisible
+    },
+    visibility () {
+      return AuthHelper.isCustomer() ? '' : 'hidden'
     }
   }
 }
@@ -62,6 +68,7 @@ export default {
   justify-content: space-between;
   width: 100%;
 }
+
 .new-ticket {
   display: flex;
 }
