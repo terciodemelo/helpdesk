@@ -7,12 +7,14 @@ import VueResource from 'vue-resource'
 import App from './App'
 import Home from './components/Home'
 import TicketsList from './components/TicketsList'
+import TicketDetails from './components/TicketDetails'
 
 import AuthHelper from './helpers/auth_helper'
 
 import 'bulma/css/bulma.css'
 import 'font-awesome/css/font-awesome.min.css'
 
+Vue.use(require('vue-moment'))
 Vue.use(VueResource)
 Vue.use(VueRouter)
 
@@ -40,6 +42,10 @@ const router = new VueRouter({
           next('/')
         }
       }
+    },
+    {
+      path: '/tickets/:id',
+      component: TicketDetails
     }
   ]
 })
