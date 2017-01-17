@@ -1,7 +1,13 @@
 <template>
   <div class="home">
-    <div id="welcome-message">
-      Wellcome message
+    <div id="welcome-message" class="content">
+      <h1>Wellcome to Customer Support</h1>
+      <p>
+        Here you will be able to create support tickets
+        and talk to our support agents in order to solve
+        any kind of problem you have
+      </p>
+      <p>First of all, login or create a new account below</p>
     </div>
 
     <login-form v-if="!loggedIn() && form === 'login'"
@@ -49,11 +55,21 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 .home {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 100px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content > p {
+  max-width: 60%;
 }
 
 h1, h2 {

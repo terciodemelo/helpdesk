@@ -3,17 +3,27 @@
     <form class="box" action="/api/login">
       <p class="control has-icon">
         <input class="input" id="email" type="text"
+               :class="not_found ? 'is-danger' : ''"
                v-model="email" placeholder="Email">
         <span class="icon is-small">
           <i class="fa fa-envelope"></i>
+        </span>
+        <span class="help is-danger"
+              :class="not_found ? '' : 'absent'">
+          This email address is not registered
         </span>
       </p>
 
       <p class="control has-icon">
         <input class="input" id="password" type="password"
+               :class="wrong_password ? 'is-danger' : ''"
                v-model="password" placeholder="Password">
         <span class="icon is-small">
           <i class="fa fa-lock"></i>
+        </span>
+        <span class="help is-danger"
+              :class="wrong_password ? '' : 'absent'">
+          Wrong password
         </span>
       </p>
 
@@ -34,7 +44,9 @@ export default {
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      not_found: false,
+      wrong_password: false
     }
   },
   methods: {
@@ -56,6 +68,8 @@ export default {
 
                   this.$emit('login-successful', payload)
                 }, response => { // failure
+                  this.not_found = response.status === 404
+                  this.wrong_password = response.status === 401
                   console.log(response.body)
                 })
     }
