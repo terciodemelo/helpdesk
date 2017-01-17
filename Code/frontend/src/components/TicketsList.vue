@@ -35,17 +35,15 @@ import PDF from 'jspdf'
 
 export default {
   name: 'tickets-list',
+  props: ['tickets'],
   data () {
     return {
-      tickets: [],
       selection: 'all',
       open: true,
       closed: true
     }
   },
   created () {
-    this.fetchTickets()
-
     let status = this.$route.query.status
     this.selection === this.$route.query.since || 'all'
 
@@ -66,27 +64,12 @@ export default {
       })
       report.save('tickets-report.pdf')
     },
-    fetchTickets () {
-      let headers = AuthHelper.jsonHeaders()
-
-      let url = '/api/tickets'
-
-      this.$http.get(url, {headers})
-                .then(response => {
-                  response.body.sort((t1, t2) => {
-                    return [t1.created_at, -t1.id] > [t2.created_at, -t2.id]
-                  })
-                  this.tickets = response.body
-                }, response => {
-                  console.log(response.body)
-                })
-    },
     newTicket (payload) {
       let headers = AuthHelper.jsonHeaders()
 
       this.$http.post('/api/tickets', payload, {headers})
                 .then(response => { // success
-                  this.tickets.unshift(response.body)
+                  this.$emit('new-ticket', response.body)
                   console.log(this.tickets)
                 }, response => { // failure
                   console.log(response.body)
