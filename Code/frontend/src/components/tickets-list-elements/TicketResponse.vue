@@ -22,7 +22,7 @@ export default {
   methods: {
     getStyle () {
       return this.response.author_id === +AuthHelper.user().id
-             ? 'user-response' : ''
+             ? 'user-response' : 'other-response'
     }
   }
 }
@@ -31,6 +31,69 @@ export default {
 <style scoped>
 .box {
   padding-top: 3px;
+}
+
+.other-response {
+  border-radius: 0px 5px 5px 5px;
+  position:relative;
+  margin-left: 13px;
+}
+.other-response:after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 0 13px 15px 0;
+  border-color: transparent #FFFFFF;
+  display: block;
+  width: 0;
+  z-index: 1;
+  left: -11px;
+  top: -0px;
+}
+
+.other-response:before {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 0 13px 15px 0;
+  border-color: transparent #dfdfdf;
+  display: block;
+  width: 0;
+  z-index: 0;
+  left: -13px;
+  top: -1px;
+}
+
+.user-response {
+  border-radius: 5px 0px 5px 5px;
+  position:relative;
+  margin-right: 13px;
+}
+
+.user-response:after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 0 0 15px 13px;
+  border-color: transparent #FFFFFF;
+  display: block;
+  width: 0;
+  z-index: 1;
+  right: -11px;
+  top: -0px;
+}
+
+.user-response:before {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 0 0 15px 13px;
+  border-color: transparent #dfdfdf;
+  display: block;
+  width: 0;
+  z-index: 0;
+  right: -13px;
+  top: -1px;
 }
 
 .user-response #name {

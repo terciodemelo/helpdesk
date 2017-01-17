@@ -2,7 +2,7 @@
   <div class="new-ticket-response">
     <form @submit.prevent="newResponse">
       <textarea v-model="response" class="textarea"></textarea>
-      <button class="button">Respond</button>
+      <button class="button is-primary">Respond</button>
     </form>
   </div>
 </template>
