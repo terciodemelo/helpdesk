@@ -21,11 +21,12 @@
           <td> {{ user.closed_tickets }} </td>
           <td> {{ total(user.open_tickets, user.closed_tickets) }} </td>
           <td>
-            <button class="button is-danger is-small">
+            <a class="button is-danger is-small"
+                    @click.prevent="remove(user.id)">
               <span class="icon is-small">
                 <i class="fa fa-times"></i>
               </span>
-            </button>
+            </a>
           </td>
         </tr>
       </tbody>
@@ -47,6 +48,18 @@ export default {
     this.fetchUsers()
   },
   methods: {
+    remove (userId) {
+      let headers = AuthHelper.jsonHeaders()
+      let url = `/api/users/${userId}`
+
+      this.$http.delete(url, {headers})
+                .then(response => {
+                  console.log(response.body)
+                  this.users = this.users.filter(u => u.id !== userId)
+                }, response => {
+                  console.log(response.body)
+                })
+    },
     fetchUsers () {
       let headers = AuthHelper.jsonHeaders()
 
