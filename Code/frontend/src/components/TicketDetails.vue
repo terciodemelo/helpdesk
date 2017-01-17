@@ -4,7 +4,7 @@
       <ticket-resume :ticket="ticket" @ticket-update="ticketUpdate">
       </ticket-resume>
 
-      <ticket-response v-for="response in ticket.ticket_responses"
+      <ticket-response v-for="response in ticket_responses"
                        :class="responseAlignment(response)"
                        :response="response">
       </ticket-response>
@@ -31,7 +31,8 @@ export default {
   name: 'ticket-details',
   data () {
     return {
-      ticket: null
+      ticket: null,
+      ticket_responses: []
     }
   },
   methods: {
@@ -41,6 +42,18 @@ export default {
       this.$http.get(`/api/tickets/${this.$route.params.id}`, {headers})
                 .then(response => {
                   this.ticket = response.body
+                  this.fetchTicketResponses()
+                }, response => {
+                  console.log(response.body)
+                })
+    },
+    fetchTicketResponses () {
+      let headers = AuthHelper.jsonHeaders()
+      let url = `/api/tickets/${this.$route.params.id}/ticket_responses`
+
+      this.$http.get(url, {headers})
+                .then(response => {
+                  this.ticket_responses = response.body
                 }, response => {
                   console.log(response.body)
                 })
@@ -54,7 +67,7 @@ export default {
 
       this.$http.post(url, {body: response}, {headers})
                 .then(response => {
-                  this.ticket.ticket_responses.push(response.body)
+                  this.ticket_responses.push(response.body)
                   this.ticket.responses_count += 1
                 }, response => {
                   console.log(response.body)
