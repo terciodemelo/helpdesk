@@ -55,6 +55,7 @@ export default {
       this.$http.post(url, {body: response}, {headers})
                 .then(response => {
                   this.ticket.ticket_responses.push(response.body)
+                  this.ticket.responses_count += 1
                 }, response => {
                   console.log(response.body)
                 })

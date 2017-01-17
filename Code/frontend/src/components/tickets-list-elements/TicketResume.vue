@@ -14,10 +14,19 @@
                @click.prevent="toggleStatus"> CLOSED </a>
             <br>
             <small>
-              Created by <strong>{{ ticket.author_name }}</strong>
+              Created by 
+              <strong class="blued">
+                {{ ticket.author_name }}
+              </strong>
               in <strong>{{ creation_date }}</strong>
             </small>
             <pre>{{ ticket.body }}</pre>
+
+            <small>
+              <strong class="blued">
+                {{ ticket.responses_count }} responses
+              </strong>
+            </small>
           </p>
         </div>
       </article>
@@ -65,9 +74,18 @@ pre {
   white-space: -pre-wrap;      /* Opera 4-6 */
   white-space: -o-pre-wrap;    /* Opera 7 */
   word-wrap: break-word;       /* Internet Explorer 5.5+ */
+  margin-bottom: 3px;
+}
+
+.box {
+  padding-bottom: 4px;
 }
 
 .tag {
   float: right;
+}
+
+.blued {
+  color: cornflowerblue;
 }
 </style>

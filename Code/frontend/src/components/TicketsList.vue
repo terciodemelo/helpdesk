@@ -74,7 +74,7 @@ export default {
       this.$http.get(url, {headers})
                 .then(response => {
                   response.body.sort((t1, t2) => {
-                    [t1.created_at, -t1.id] > [t2.created_at, -t2.id]
+                    return [t1.created_at, -t1.id] > [t2.created_at, -t2.id]
                   })
                   this.tickets = response.body
                 }, response => {
