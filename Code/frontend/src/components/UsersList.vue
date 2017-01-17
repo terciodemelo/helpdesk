@@ -15,7 +15,13 @@
       <tbody>
         <tr v-for="user in users">
           <th> {{ user.id }} </th>
-          <td> {{ user.name }} </td>
+          <td> 
+            <strong>
+              <router-link :to="userDetails(user.id)">
+                {{ user.name }}
+              </router-link>
+            </strong>
+          </td>
           <td> {{ user.email }} </td>
           <td> {{ user.open_tickets }} </td>
           <td> {{ user.closed_tickets }} </td>
@@ -79,6 +85,9 @@ export default {
     total (openTickets, closedTickets) {
       return openTickets === null
              ? null : openTickets + closedTickets
+    },
+    userDetails (userId) {
+      return `/users/${userId}`
     }
   }
 }
