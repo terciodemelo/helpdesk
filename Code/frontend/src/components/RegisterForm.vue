@@ -2,33 +2,38 @@
   <div class="register-form">
     <form class="box" action="/api/users" @submit.prevent="submit">
       <p class="control has-icon">
-        <input class="input" type="text" name="name" 
-               v-model="name" placeholder="Your full name">
-        <span class="icon is-small">
-          <i class="fa fa-user-o"></i>
-        </span>
+      <input class="input" type="text" name="name" 
+             v-model="name" placeholder="Your full name">
+      <span class="icon is-small">
+        <i class="fa fa-user-o"></i>
+      </span>
       </p>
 
       <p class="control has-icon">
-        <input class="input" type="email" name="email" 
-               v-model="email" placeholder="Email">
-        <span class="icon is-small">
-          <i class="fa fa-envelope"></i>
-        </span>
+      <input class="input" type="email" name="email" 
+             :class="conflict ? 'is-danger' : ''"
+             v-model="email" placeholder="Email">
+      <span class="icon is-small">
+        <i class="fa fa-envelope"></i>
+      </span>
+      <span class="help is-danger"
+            :class="conflict ? '' : 'absent'">
+        This email is already taken
+      </span>
       </p>
 
       <p class="control has-icon">
-        <input class="input" type="password" name="password" 
-               v-model="password" placeholder="Password">
-        <span class="icon is-small">
-          <i class="fa fa-lock"></i>
-        </span>
+      <input class="input" type="password" name="password" 
+             v-model="password" placeholder="Password">
+      <span class="icon is-small">
+        <i class="fa fa-lock"></i>
+      </span>
       </p>
 
       <form-footer :button="'Register'" 
-                   @button-click="submit"
-                   :link="'I already have an account'"
-                   @follow-link="followLink">
+           @button-click="submit"
+           :link="'I already have an account'"
+           @follow-link="followLink">
       </form-footer>
     </form>
   </div>
@@ -43,7 +48,8 @@ export default {
     return {
       name: '',
       email: '',
-      password: ''
+      password: '',
+      conflict: false
     }
   },
   methods: {
@@ -63,7 +69,7 @@ export default {
                 .then(response => { // success
                   this.$emit('follow-link')
                 }, response => {
-                  console.log(response.body)
+                  this.conflict = response.status === 409
                 })
     },
     followLink () {

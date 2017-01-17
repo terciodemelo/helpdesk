@@ -46,6 +46,10 @@ export default {
   visibility: hidden;
 }
 
+.absent {
+	display: none !important;
+}
+
 nav {
   width: 100%;
 }
