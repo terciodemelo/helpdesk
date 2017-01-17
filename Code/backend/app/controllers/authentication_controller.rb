@@ -10,8 +10,10 @@ class AuthenticationController < ApplicationController
     if user.password == params[:password]
       render json: payload(user)
     else
-      render json: {errors: ['Invalid Username/Password']}, status: :unauthorized
+      render json: {errors: ['Invalid Password']}, status: :unauthorized
     end
+  rescue NoMethodError
+    render_not_found "Email not registered"
   end
 
   # GET /api/ping

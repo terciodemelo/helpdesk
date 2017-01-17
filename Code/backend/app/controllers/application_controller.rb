@@ -38,6 +38,15 @@ class ApplicationController < ActionController::API
     render_unauthorized(msg="You must be Admin to perform this operation")
   end
 
+  # Responds request a not fonud status, json content-type,
+  # and a message explaining that the requested resource
+  # does not exist
+  #
+  # @param [String] msg a message to be responded
+  def render_not_found(msg="Resource Not Found")
+    render json: { errors: [msg] }, status: :not_found
+  end
+
   # Responds request an unauthorized status, json content-type,
   # and a message explaining that they do not have authorization
   # to perform the current action
