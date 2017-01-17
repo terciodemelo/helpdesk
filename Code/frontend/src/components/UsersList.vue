@@ -58,13 +58,22 @@ export default {
       let headers = AuthHelper.jsonHeaders()
       let url = `/api/users/${userId}`
 
-      this.$http.delete(url, {headers})
-                .then(response => {
-                  console.log(response.body)
-                  this.users = this.users.filter(u => u.id !== userId)
-                }, response => {
-                  console.log(response.body)
-                })
+      this.$swal({
+        title: 'Are you sure?',
+        text: 'You cannot recover a removed user',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dd6b55',
+        confirmButtonText: 'Yes, delete!'
+      }).then(result => {
+        this.$http.delete(url, {headers})
+                  .then(response => {
+                    this.$swal('Deleted!', `User ${userId} has been deleted.`, 'success')
+                    this.users = this.users.filter(u => u.id !== userId)
+                  }, response => {
+                    console.log(response.body)
+                  })
+      }, () => {})
     },
     fetchUsers () {
       let headers = AuthHelper.jsonHeaders()

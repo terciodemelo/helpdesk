@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
+import VueSweetAlert from 'vue-sweetalert'
 
 import App from './App'
 import Home from './components/Home'
@@ -17,6 +18,7 @@ import 'bulma/css/bulma.css'
 import 'font-awesome/css/font-awesome.min.css'
 
 Vue.use(require('vue-moment'))
+Vue.use(VueSweetAlert)
 Vue.use(VueResource)
 Vue.use(VueRouter)
 
