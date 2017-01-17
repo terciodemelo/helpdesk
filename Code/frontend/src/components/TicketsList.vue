@@ -47,6 +47,7 @@ export default {
     this.fetchTickets()
 
     let status = this.$route.query.status
+    this.selection === this.$route.query.since || 'all'
 
     if (status && status === 'OPEN') {
       this.closed = false
@@ -100,6 +101,7 @@ export default {
     },
     selectionUpdate (selection) {
       this.selection = selection
+      this.fixQueryString()
     },
     toggleOpen () {
       this.open = !this.open
@@ -110,19 +112,29 @@ export default {
       this.fixQueryString()
     },
     visible (ticket) {
-      return (ticket.status === 'CLOSED' && this.closed) ||
-             (ticket.status === 'OPEN' && this.open)
+      let since = this.selection === 'all' ? -1
+                  : this.selection === 'last_month' ? 31
+                  : this.selection === 'last_week' ? 7 : 1
+
+      let creation = new Date(ticket.created_at)
+      let beginning = new Date()
+      beginning.setDate(beginning.getDate() - since)
+
+      return ((ticket.status === 'CLOSED' && this.closed) ||
+             (ticket.status === 'OPEN' && this.open)) &&
+             (since === -1 || creation >= beginning)
     },
     fixQueryString () {
-      if (this.open && this.closed) {
-        this.$router.replace({query: {}})
-      } else if (this.closed) {
-        this.$router.replace({query: {status: 'CLOSED'}})
-      } else if (this.open) {
-        this.$router.replace({query: {status: 'OPEN'}})
-      } else {
-        this.$router.replace({query: {}})
+      let query = this.selection === 'all'
+                  ? {} : {since: this.selection}
+
+      if (this.closed && !this.open) {
+        query.status = 'CLOSED'
+      } else if (this.open && !this.closed) {
+        query.status = 'OPEN'
       }
+
+      this.$router.replace({query})
     }
   },
   components: {
