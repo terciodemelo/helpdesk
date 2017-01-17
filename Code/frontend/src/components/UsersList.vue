@@ -6,6 +6,10 @@
           <th><abbr title="ID">ID</abbr></th>
           <th><abbr title="Name">Name</abbr></th>
           <th><abbr title="@">Email</abbr></th>
+          <th><abbr title="OT">Open Tickets</abbr></th>
+          <th><abbr title="CT">Closed Tickets</abbr></th>
+          <th><abbr title="TT">Total Tickets</abbr></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -13,6 +17,16 @@
           <th> {{ user.id }} </th>
           <td> {{ user.name }} </td>
           <td> {{ user.email }} </td>
+          <td> {{ user.open_tickets }} </td>
+          <td> {{ user.closed_tickets }} </td>
+          <td> {{ total(user.open_tickets, user.closed_tickets) }} </td>
+          <td>
+            <button class="button is-danger is-small">
+              <span class="icon is-small">
+                <i class="fa fa-times"></i>
+              </span>
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -41,12 +55,17 @@ export default {
       this.$http.get(url, {headers})
                 .then(response => {
                   response.body.sort((t1, t2) => {
-                    return [t1.created_at, -t1.id] > [t2.created_at, -t2.id]
+                    return (+t1.id) - (+t2.id)
                   })
+
                   this.users = response.body
                 }, response => {
                   console.log(response.body)
                 })
+    },
+    total (openTickets, closedTickets) {
+      return openTickets === null
+             ? null : openTickets + closedTickets
     }
   }
 }
@@ -55,5 +74,9 @@ export default {
 <style scoped>
 .users-list {
   padding-top: 100px;
+}
+
+td {
+  text-align: center;
 }
 </style>
