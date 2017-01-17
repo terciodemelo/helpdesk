@@ -1,6 +1,6 @@
 <template>
   <div class="form-footer">
-    <button class="button" @click.prevent="buttonClick">
+    <button class="button is-primary" @click.prevent="buttonClick">
       {{ button }}
     </button>
 

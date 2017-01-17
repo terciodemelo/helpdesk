@@ -1,10 +1,21 @@
 <template>
   <div class="login-form">
     <form class="box" action="/api/login">
-      <input class="input" id="email" type="text"
-             v-model="email" placeholder="email@address.here">
-      <input class="input" id="password" type="password"
-             v-model="password" placeholder="Password">
+      <p class="control has-icon">
+        <input class="input" id="email" type="text"
+               v-model="email" placeholder="Email">
+        <span class="icon is-small">
+          <i class="fa fa-envelope"></i>
+        </span>
+      </p>
+
+      <p class="control has-icon">
+        <input class="input" id="password" type="password"
+               v-model="password" placeholder="Password">
+        <span class="icon is-small">
+          <i class="fa fa-lock"></i>
+        </span>
+      </p>
 
       <form-footer :button="'Login'" 
                    @button-click="submit"

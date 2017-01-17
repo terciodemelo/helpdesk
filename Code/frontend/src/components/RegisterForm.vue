@@ -1,12 +1,29 @@
 <template>
   <div class="register-form">
     <form class="box" action="/api/users" @submit.prevent="submit">
-      <input class="input" type="text" name="name" 
-             v-model="name" placeholder="Your full name">
-      <input class="input" type="email" name="email" 
-             v-model="email" placeholder="email@address.here">
-      <input class="input" type="password" name="password" 
-             v-model="password" placeholder="Password">
+      <p class="control has-icon">
+        <input class="input" type="text" name="name" 
+               v-model="name" placeholder="Your full name">
+        <span class="icon is-small">
+          <i class="fa fa-user-o"></i>
+        </span>
+      </p>
+
+      <p class="control has-icon">
+        <input class="input" type="email" name="email" 
+               v-model="email" placeholder="Email">
+        <span class="icon is-small">
+          <i class="fa fa-envelope"></i>
+        </span>
+      </p>
+
+      <p class="control has-icon">
+        <input class="input" type="password" name="password" 
+               v-model="password" placeholder="Password">
+        <span class="icon is-small">
+          <i class="fa fa-lock"></i>
+        </span>
+      </p>
 
       <form-footer :button="'Register'" 
                    @button-click="submit"
