@@ -2,10 +2,12 @@
   <div id="app">
     <nav class="nav has-shadow">
       <div class="nav-left">
-        <router-link class="nav-item is-tab" to="/tickets">
+        <router-link class="nav-item is-tab" to="/tickets"
+                     :class="isLoggedIn() ? '' : 'hidden'">
           Tickets
         </router-link>
-        <router-link class="nav-item is-tab" to="/users">
+        <router-link class="nav-item is-tab" to="/users"
+                     :class="isAdmin() ? '' : 'hidden'">
           Users
         </router-link>
       </div>
@@ -33,6 +35,9 @@ export default {
     },
     isLoggedIn () {
       return AuthHelper.isLoggedIn()
+    },
+    isAdmin () {
+      return AuthHelper.isAdmin()
     },
     userName () {
       return localStorage.getItem('user_name')
