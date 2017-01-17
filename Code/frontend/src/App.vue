@@ -2,11 +2,11 @@
   <div id="app">
     <nav class="nav has-shadow">
       <div class="nav-left">
-        <router-link class="nav-item is-tab" to="/">
-          Home
-        </router-link>
         <router-link class="nav-item is-tab" to="/tickets">
           Tickets
+        </router-link>
+        <router-link class="nav-item is-tab" to="/users">
+          Users
         </router-link>
       </div>
 

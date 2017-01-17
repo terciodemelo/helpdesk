@@ -8,6 +8,7 @@ import App from './App'
 import Home from './components/Home'
 import TicketsList from './components/TicketsList'
 import TicketDetails from './components/TicketDetails'
+import UsersList from './components/UsersList'
 
 import AuthHelper from './helpers/auth_helper'
 
@@ -46,6 +47,17 @@ const router = new VueRouter({
     {
       path: '/tickets/:id',
       component: TicketDetails
+    },
+    {
+      path: '/users',
+      component: UsersList,
+      beforeEnter: (to, from, next) => {
+        if (AuthHelper.isAdmin()) {
+          next()
+        } else {
+          next('/')
+        }
+      }
     }
   ]
 })
