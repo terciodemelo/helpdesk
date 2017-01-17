@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :update, :destroy, :tickets]
   before_action :authenticate_request!, except: [:create]
 
   # 
@@ -10,6 +10,13 @@ class UsersController < ApplicationController
     @users = User.all
 
     render json: @users
+  end
+
+  #
+  # Respondsall the tickets the specified user has
+  #
+  def tickets
+    render json: @user.tickets
   end
 
   # 
@@ -92,6 +99,8 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      @user = User.find(params[:user_id])
     end
 
     # Only allow a trusted parameter "white list" through.
