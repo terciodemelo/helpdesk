@@ -46,4 +46,7 @@ export default {
 </script>
 
 <style scoped>
+.tickets {
+  padding-top: 50px;
+}
 </style>

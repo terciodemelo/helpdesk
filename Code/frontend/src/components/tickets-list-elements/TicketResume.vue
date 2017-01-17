@@ -16,7 +16,9 @@
             <small>
               Created by 
               <strong class="blued">
-                {{ ticket.author_name }}
+                <router-link :to="authorPath(ticket.author_id)">
+                  {{ ticket.author_name }}
+                </router-link>
               </strong>
               in <strong>{{ creation_date }}</strong>
             </small>
@@ -61,6 +63,9 @@ export default {
                 }, response => {
                   console.log(response.body)
                 })
+    },
+    authorPath (authorId) {
+      return `/users/${authorId}`
     }
   }
 }
@@ -85,7 +90,7 @@ pre {
   float: right;
 }
 
-.blued {
+.blued, .blued > a {
   color: cornflowerblue;
 }
 </style>

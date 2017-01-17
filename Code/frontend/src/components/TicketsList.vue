@@ -129,10 +129,6 @@ export default {
 </script>
 
 <style scoped>
-.tickets-list {
-  padding-top: 50px;
-}
-
 .ticket-resume, .new-ticket {
   margin-bottom: 10px;
 }
