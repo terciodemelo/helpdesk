@@ -34,7 +34,7 @@ export default {
 }
 
 .user-response #name {
-  color: mediumslateblue;
+  color: dodgerblue;
 }
 
 #name {
