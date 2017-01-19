@@ -50,10 +50,23 @@ export default {
       users: []
     }
   },
+  /*
+   * This creation hook simply calls the functions 'fetchUsers'
+   * to retrieve the data to be stored in the attribute
+   * 'users'
+   *
+   * @see users
+   */
   created () {
     this.fetchUsers()
   },
   methods: {
+    /*
+     * This function handles the deletion of a user by making a HTTP
+     * DELETE request to /api/users/:id after a SweetAlert2 confirmation
+     * and upon a successful response, updates the 'users' component
+     * attribute accordingly
+     */
     remove (userId) {
       let headers = AuthHelper.jsonHeaders()
       let url = `/api/users/${userId}`
@@ -80,6 +93,12 @@ export default {
                   })
       }, () => {})
     },
+
+    /*
+     * This function fetches all users through an HTTP Ajax request to
+     * /api/users, and upon a successful response it updates the 'users'
+     * attribute
+     */
     fetchUsers () {
       let headers = AuthHelper.jsonHeaders()
 
@@ -96,10 +115,20 @@ export default {
                   console.log(response.body)
                 })
     },
+
+    /*
+     * This methods returns the sum of the two provided numeric values.
+     * If one of them is null them null is returned. It is used to
+     * fill the "Total Tickets" column in the users table
+     */
     total (openTickets, closedTickets) {
       return openTickets === null
              ? null : openTickets + closedTickets
     },
+
+    /*
+     * Returns the URL path to a user given its id
+     */
     userDetails (userId) {
       return `/users/${userId}`
     }
