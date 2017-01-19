@@ -46,13 +46,34 @@ export default {
   name: 'register-form',
   data () {
     return {
+      /*
+       * Stores the user's name
+       */
       name: '',
+
+      /*
+       * Stores the user's email
+       */
       email: '',
+
+      /*
+       * Stores the user's password
+       */
       password: '',
+
+      /*
+       * It is true of the provided email is already taken and
+       * false otherwise
+       */
       conflict: false
     }
   },
   methods: {
+    /*
+     * Handles the form submission and if successfull emits the
+     * 'follow-link' event, which should be handled by a enclosing
+     * component, or indicates the submission problem otherwise
+     */
     submit () {
       let payload = {
         name: this.name,
@@ -72,6 +93,11 @@ export default {
                   this.conflict = response.status === 409
                 })
     },
+
+    /*
+     * Emits upward the event 'follow-link' which shall be treated by
+     * the enclosing component
+     */
     followLink () {
       this.$emit('follow-link')
     }

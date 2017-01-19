@@ -43,16 +43,41 @@ export default {
   name: 'login-form',
   data () {
     return {
+      /*
+       * Stores the user's email
+       */
       email: '',
+
+      /*
+       * Stores the user's password
+       */
       password: '',
+
+      /*
+       * true if the user is not found upon form submission, false otherwise
+       */
       not_found: false,
+
+      /*
+       * true if the password is wrong upon form submission, false otherwise
+       */
       wrong_password: false
     }
   },
   methods: {
+    /*
+     * Emits upward the event 'follow-link' which shall be treated by the
+     * enclosing component
+     */
     followLink () {
       this.$emit('follow-link')
     },
+
+    /*
+     * Handles the form submission and if successfull emits the
+     * 'login-successful' event, which should be handled by a enclosing
+     * component, or indicates the submission problem otherwise
+     */
     submit () {
       let payload = { password: this.password, email: this.email }
       let headers = { 'Content-Type': 'application/json' }
