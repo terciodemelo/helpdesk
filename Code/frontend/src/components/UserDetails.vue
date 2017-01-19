@@ -16,15 +16,39 @@ export default {
   name: 'user-details',
   data () {
     return {
+      /*
+       * Stores a user object, which contains data to render this view's
+       * contents
+       */
       user: null,
+
+      /*
+       * Stores an array of tickets that belong to the user detailed
+       * in the current view
+       *
+       * @see user
+       */
       tickets: []
     }
   },
+  /*
+   * This creation hook simply calls the functions 'fetchUser' and
+   * 'fetchTickets' to retrieve the data to be stored in the attributes
+   * 'user' and 'tickets' respectively
+   *
+   * @see fetchUser
+   * @see fetchTickets
+   */
   created () {
     this.fetchUser()
     this.fetchTickets()
   },
   methods: {
+    /*
+     * Makes an HTTP Ajax call to /api/users/:id to retreive a json object
+     * representing the user, and upon successfully retrieving the data
+     * it is stored in the 'user' attribute
+     */
     fetchUser () {
       let headers = AuthHelper.jsonHeaders()
 
@@ -35,6 +59,13 @@ export default {
                   console.log(response.body)
                 })
     },
+
+    /*
+     * Makes an HTTP Ajax call to /api/users/:id/tickets to retreive a json
+     * object containingc the users tickets, and upon successfully
+     * retrieving the data, it is stored in the 'tickets' attributes, and
+     * then forwarded to a TicketsList component
+     */
     fetchTickets () {
       let headers = AuthHelper.jsonHeaders()
       let url = `/api/users/${this.$route.params.id}/tickets`
