@@ -31,17 +31,38 @@ export default {
   name: 'home',
   data () {
     return {
+      /*
+       * Indicates the form which will be rendered in this view.
+       * if it's value is 'login', then a LoginForm component will
+       * be rendered, and a RegisterForm will be rendered otherwise
+       */
       form: 'login'
     }
   },
   methods: {
+
+    /*
+     * Simple encapsulates a call to AuthHelper#isLoggedIn
+     *
+     * @return [boolean] true if is logged in, and false otherwise
+     */
     loggedIn () {
       return AuthHelper.isLoggedIn()
     },
+
+    /*
+     * Callback of a successful login, trigered by a 'login-successful'
+     * event
+     */
     loginSuccessful (payload) {
       AuthHelper.login(payload)
       this.$router.push('/tickets')
     },
+
+    /*
+     * Swaps the currently rendered form by toggling the 'form' attribute
+     * between 'login' and 'register'
+     */
     swapForm () {
       this.form = this.form === 'login' ? 'register' : 'login'
     }
