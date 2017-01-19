@@ -63,12 +63,17 @@ export default {
         text: 'You cannot recover a removed user',
         type: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#dd6b55',
+        confirmButtonColor: '#ff3860',
         confirmButtonText: 'Yes, delete!'
       }).then(result => {
         this.$http.delete(url, {headers})
                   .then(response => {
-                    this.$swal('Deleted!', `User ${userId} has been deleted.`, 'success')
+                    this.$swal({
+                      title: 'Deleted!',
+                      text: `User ${userId} has been deleted.`,
+                      type: 'success',
+                      confirmButtonColor: '#00d1b2'
+                    })
                     this.users = this.users.filter(u => u.id !== userId)
                   }, response => {
                     console.log(response.body)
@@ -107,7 +112,7 @@ export default {
   padding-top: 100px;
 }
 
-td {
+td, abbr {
   text-align: center;
 }
 </style>
