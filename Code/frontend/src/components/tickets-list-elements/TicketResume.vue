@@ -41,16 +41,32 @@ import AuthHelper from '../../helpers/auth_helper'
 
 export default {
   name: 'ticket-resume',
+  /*
+   * 'ticket' prop stores the data to be displayed in the current component
+   */
   props: ['ticket'],
   computed: {
+    /*
+     * Stores the path to the current ticket details page
+     */
     ticket_url: function () {
       return `/tickets/${this.ticket.id}`
     },
+
+    /*
+     * Stores a better formatted creation date string
+     */
     creation_date: function () {
       return new Date(this.ticket.created_at).toDateString()
     }
   },
   methods: {
+    /*
+     * Handles the ticket status update by sending an HTTP PATCH request
+     * to /api/tickets/:id and upon a successful response emits upward
+     * the event 'ticket-update' along with the reponse body which shall
+     * be handled by the enclosing component
+     */
     toggleStatus () {
       let status = this.ticket.status === 'OPEN' ? 'CLOSED' : 'OPEN'
       let url = `/api/tickets/${this.ticket.id}`
@@ -64,6 +80,10 @@ export default {
                   console.log(response.body)
                 })
     },
+
+    /*
+     * Returns an author path given their id
+     */
     authorPath (authorId) {
       return `/users/${authorId}`
     }

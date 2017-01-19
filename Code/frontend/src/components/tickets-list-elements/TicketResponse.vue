@@ -18,8 +18,18 @@ import AuthHelper from '../../helpers/auth_helper'
 
 export default {
   name: 'ticket-response',
+  /*
+   * Stores a response data to be displayed by this component
+   */
   props: ['response'],
   methods: {
+    /*
+     * Returns a CSS class according to the authory of the current
+     * response.
+     *
+     * @return [String] 'user-response' if the currently logged in user
+     *                  is the response author, 'other-response' otherwise
+     */
     getStyle () {
       return this.response.author_id === +AuthHelper.user().id
              ? 'user-response' : 'other-response'

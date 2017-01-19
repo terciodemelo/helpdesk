@@ -12,10 +12,19 @@ export default {
   name: 'new-ticket-response',
   data () {
     return {
+      /*
+       * Stores the response content
+       */
       response: ''
     }
   },
   methods: {
+    /*
+     * Triggered when the evente the Respond button is clicked, then
+     * it emits upward the event 'new-response' which shall be handled
+     * by the enclosing component. It also resets the 'response' attribute
+     * value to an empty string
+     */
     newResponse () {
       this.$emit('new-response', this.response)
       this.response = ''

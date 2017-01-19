@@ -13,11 +13,25 @@
 <script>
 export default {
   name: 'form-footer',
+
+  /*
+   * 'button' prop simply stores the text to be displayed in the button
+   * 'link' prop simply stores the text to be displayed in the link
+   */
   props: ['button', 'link'],
   methods: {
+    /*
+     * Triggered when the button is clicked, then it emmits a 'button-click'
+     * event which shall be handled by the enclosing component
+     */
     buttonClick () {
       this.$emit('button-click')
     },
+
+    /*
+     * Triggered when the link is clicked, then it emmits a 'follow-link'
+     * event which shall be handled by the enclosing component
+     */
     followLink () {
       this.$emit('follow-link')
     }
