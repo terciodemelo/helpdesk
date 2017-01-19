@@ -31,11 +31,37 @@ export default {
   name: 'ticket-details',
   data () {
     return {
+      /*
+       * Stores an object for this view's ticket, which is forwarded
+       * to a TicketResume component
+       */
       ticket: null,
+
+      /*
+       * Stores all the responses for this view's ticket, which each one
+       * will be forwarded to a TicketResponse component
+       */
       ticket_responses: []
     }
   },
+  /*
+   * This creation hook simply calls the function 'fetchTicket' which
+   * will update the 'ticket' and 'ticket_responses' attributes
+   *
+   * @see fetchTicket
+   */
+  created () {
+    this.fetchTicket()
+  },
   methods: {
+    /*
+     * Fetch the ticket to be detailed in the current view, upon
+     * successfully retrieving the ticket, it stores the received
+     * ticket in 'ticket' attribute and then calls 'fetchTicketResponses'
+     *
+     * @see ticket
+     * @see fetchTicketResponses
+     */
     fetchTicket () {
       let headers = AuthHelper.jsonHeaders()
 
@@ -47,6 +73,15 @@ export default {
                   console.log(response.body)
                 })
     },
+
+    /*
+     * Fetch the ticket responses to be listed in the current view, upon
+     * successfully retrieving them, they are stored in 'ticket_responses'
+     * attribute
+     *
+     * @see ticket
+     * @see fetchTicketResponses
+     */
     fetchTicketResponses () {
       let headers = AuthHelper.jsonHeaders()
       let url = `/api/tickets/${this.$route.params.id}/ticket_responses`
@@ -58,6 +93,17 @@ export default {
                   console.log(response.body)
                 })
     },
+
+    /*
+     * Submits the creating of a ne ticket response to the API server
+     * through a POST request to /api/tickets/:ticket_id/ticket_responses
+     * and upond a sucessful response, it updates the 'ticket' and
+     * 'ticket_responses' attributes accordingly
+     *
+     * @param [Object] response
+     * @see ticket
+     * @see ticket_responses
+     */
     newResponse (response) {
       let headers = {
         'Content-Type': 'application/json',
@@ -73,16 +119,31 @@ export default {
                   console.log(response.body)
                 })
     },
+
+    /*
+     * Updates the 'ticket' attribute with the ticket passed as parameter
+     *
+     * @param [Object] newTicket
+     * @see ticket
+     */
     ticketUpdate (newTicket) {
       this.ticket.status = newTicket.status
     },
+
+    /*
+     * Returns the CSS class name for a given response, according with
+     * the authory of the given response is of the currently logged in
+     * user or not. If it is, then the return will be 'response-right'
+     * and 'response-left' otherwise
+     *
+     * @param [Object] response
+     * @return String 'response-right' if the current user is the response
+     *                author and 'response-left' otherwise
+     */
     responseAlignment (response) {
       return response.author_id === +AuthHelper.user().id
              ? 'response-right' : 'response-left'
     }
-  },
-  created () {
-    this.fetchTicket()
   },
   components: {
     TicketResume,
