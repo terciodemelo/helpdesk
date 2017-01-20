@@ -1,9 +1,16 @@
 @startuml
-package "Controllers" {
+package "Frontend" {
   [Users]
   [Tickets]
   [TicketsResponse]
-  [Authentication]
+  [AuthenticationHelper]
+}
+
+package "Controllers" {
+  [UsersController]
+  [TicketsController]
+  [TicketsResponseController]
+  [AuthenticationController]
 }
 
 database "MySQL" {
@@ -12,9 +19,14 @@ database "MySQL" {
 
 auth -- [JWT Authentication]
 
-[Authentication] ..> auth
-[Users] ..> ORM
-[Tickets] ..> ORM
-[TicketsResponse] ..> ORM
-[Users] ..> ORM
+[AuthenticationController] ..> auth
+[UsersController] ..> ORM
+[TicketsController] ..> ORM
+[TicketsResponseController] ..> ORM
+
+[Users] ..> [UsersController]
+[Users] ..> [AuthenticationController]
+[AuthenticationHelper] ..> [AuthenticationController]
+[Tickets] ..> [TicketsController]
+[TicketsResponse] ..> [TicketsResponseController]
 @enduml
