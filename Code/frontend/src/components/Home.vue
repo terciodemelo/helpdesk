@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div id="welcome-message" class="content">
-      <h1>Wellcome to Customer Support</h1>
+      <h1>Welcome to Customer Support</h1>
       <p>
         Here you will be able to create support tickets
         and talk to our support agents in order to solve
