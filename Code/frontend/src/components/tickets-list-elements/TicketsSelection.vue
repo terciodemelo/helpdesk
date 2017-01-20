@@ -18,17 +18,17 @@
         </li>
         <li :class="selection === 'last_month' ? 'is-active' : ''">
           <a id='last_month' @click.prevent="selectionUpdate($event)">
-            Last Month
+            Past 30 days
           </a>
         </li>
         <li :class="selection === 'last_week' ? 'is-active' : ''">
           <a id='last_week' @click.prevent="selectionUpdate($event)">
-            Last Week
+            Past 7 days
           </a>
         </li>
         <li :class="selection === 'today' ? 'is-active' : ''">
           <a id='today' @click.prevent="selectionUpdate($event)">
-            Today
+            Past 24 hours
           </a>
         </li>
       </ul>
