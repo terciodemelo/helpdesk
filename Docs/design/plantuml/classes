@@ -30,8 +30,7 @@ User <|-up- Admin
 
 Customer "1" --- "0..*" Ticket : has >
 
-SupportAgent "1" --- "0..*" TicketResponse : author <
-Customer "1" --- "0..*" TicketResponse : author <
+User "1" --- "0..*" TicketResponse : author <
 Ticket "1" --- "0..*" TicketResponse : has >
 
 @enduml
