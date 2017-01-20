@@ -2,7 +2,7 @@
   <div class="login-form">
     <form class="box" action="/api/login">
       <p class="control has-icon">
-        <input class="input" id="email" type="text"
+        <input class="input" id="email" type="email"
                :class="not_found ? 'is-danger' : ''"
                v-model="email" placeholder="Email">
         <span class="icon is-small">
