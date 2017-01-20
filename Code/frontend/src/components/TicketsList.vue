@@ -140,6 +140,7 @@ export default {
       this.tickets.forEach((element, index, array) => {
         if (element.id === newTicket.id) {
           array[index].status = newTicket.status
+          array[index].updated_at = newTicket.updated_at
         }
       })
     },
@@ -200,7 +201,7 @@ export default {
                   : this.selection === 'last_month' ? 31
                   : this.selection === 'last_week' ? 7 : 1
 
-      let creation = new Date(ticket.created_at)
+      let creation = new Date(ticket.updated_at)
       let beginning = new Date()
       beginning.setDate(beginning.getDate() - since)
 
