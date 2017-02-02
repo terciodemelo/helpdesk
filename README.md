@@ -1,7 +1,3 @@
-# Crossover Tickets
-
-## Assumptions I have made for the assignment
-
 ### Frontend as a separated process from backend
 One of the requirements was the use of a modern JavaScript framework on the front-end, using latest versions if possible. This hinted to me that I could use a now popular choice of web services architecture: The frontend be a separate process.
 
